@@ -1,4 +1,4 @@
-# Object
+# Field
 
 Version
 
@@ -12,90 +12,82 @@ Draft
 
 # Purpose
 
-Object adalah Grammar BDL yang merepresentasikan suatu konsep yang memiliki makna bagi organisasi.
+Field adalah Grammar BDL yang merepresentasikan satu informasi yang dimiliki oleh sebuah Object.
 
-Object merupakan fondasi utama Business Definition Language.
+Field merupakan unit informasi terkecil dalam Business Definition Language.
 
-Seluruh aplikasi Business OS dibangun dari kumpulan Object yang saling berhubungan.
+Field bukan kolom database.
 
-Object bukan implementasi teknis.
+Field bukan atribut ORM.
 
-Object merupakan representasi pengetahuan bisnis.
+Field bukan variabel pemrograman.
+
+Field merupakan representasi informasi bisnis.
 
 ---
 
 # Philosophy
 
-Business berpikir menggunakan konsep.
+Business memahami suatu Object melalui informasi yang dimilikinya.
+
+Contoh.
 
 Customer
 
-Supplier
+↓
 
-Employee
+Customer Name
 
-Asset
+Phone Number
 
-Inspection
+Email Address
 
-Invoice
+Registration Date
 
-Purchase Order
+Business OS menggunakan Field untuk merepresentasikan informasi tersebut.
 
-Finding
-
-Knowledge
-
-Course
-
-Lesson
-
-Business OS menggunakan Object untuk merepresentasikan konsep-konsep tersebut.
-
-Object merupakan "kata benda" (noun) dalam Business Definition Language.
+Field merupakan "atribut" dari sebuah Object.
 
 ---
 
 # Definition
 
-Object adalah representasi formal dari suatu konsep bisnis.
+Field adalah representasi formal dari satu informasi bisnis.
 
-Object harus dapat dipahami oleh pengguna bisnis.
+Field harus mempunyai arti yang dapat dipahami oleh pengguna bisnis.
 
-Object harus tetap bermakna meskipun teknologi berubah.
+Field harus tetap bermakna meskipun teknologi berubah.
 
-Jika suatu konsep tidak mempunyai makna bisnis,
+Jika suatu informasi tidak mempunyai makna bisnis,
 
-maka konsep tersebut bukan Object.
+maka informasi tersebut bukan Field.
 
 ---
 
 # Core Characteristics
 
-Object:
+Field:
 
 - mempunyai identitas
-- mempunyai Purpose
-- mempunyai satu atau lebih Field
-- dapat mempunyai Relationship
-- bersifat independen
+- mempunyai Meaning
+- dimiliki oleh satu Object
+- menggunakan Data Type
+- bersifat independen terhadap implementasi
 - dapat digunakan oleh Grammar lain
 
-Object tidak mengetahui bagaimana Grammar lain menggunakannya.
+Field tidak mengetahui bagaimana Grammar lain menggunakannya.
 
 ---
 
 # Required Properties
 
-Object wajib memiliki.
+Field wajib memiliki.
 
 Name
 
 Code
 
-Purpose
-
-Version
+Meaning
 
 ---
 
@@ -107,13 +99,7 @@ Display Name
 
 Category
 
-Icon
-
-Color
-
 Tags
-
-Owner
 
 Localization
 
@@ -123,15 +109,19 @@ Documentation
 
 # Grammar Relationships
 
-Object mempunyai.
+Field dimiliki oleh.
 
-Field
-
-Relationship
+Object
 
 ---
 
-Object digunakan oleh.
+Field menggunakan.
+
+Data Type
+
+---
+
+Field dapat digunakan oleh.
 
 Action
 
@@ -151,55 +141,67 @@ Permission
 
 Policy
 
-Recipe
-
-Workspace
-
 Application
 
-Object tidak mengetahui bagaimana Grammar tersebut menggunakannya.
+Field tidak mengetahui bagaimana Grammar tersebut menggunakannya.
 
 ---
 
 # Semantics
 
-Object harus merepresentasikan konsep yang stabil.
+Field merepresentasikan satu informasi bisnis.
+
+Satu Field hanya mempunyai satu makna.
 
 Contoh.
 
-Customer
+Customer Name
 
-Supplier
+↓
 
-Employee
+Nama resmi pelanggan.
 
-Invoice
+---
 
-Asset
+Phone Number
 
-Inspection
+↓
 
-Knowledge
+Nomor telepon utama pelanggan.
 
-Object tidak dibuat berdasarkan implementasi.
+---
+
+Expense Amount
+
+↓
+
+Nilai pengeluaran yang diajukan.
+
+---
+
+Inspection Date
+
+↓
+
+Tanggal pelaksanaan inspeksi.
 
 Contoh yang salah.
 
-tbl_customer
+customer_name_varchar
 
-customer_model
+tbl_customer_name
 
-invoice_service
+customer_name_column
 
-inspection_controller
+phone_string
 
-customer_api
+email_text
 
 ---
 
 # Constraints
 
-Object tidak boleh mengetahui.
+Field tidak boleh mengetahui.
 
 Database
 
@@ -235,7 +237,9 @@ Docker
 
 Infrastructure
 
-Object juga tidak mengetahui.
+Implementasi Data Type
+
+Field juga tidak mengetahui.
 
 Action
 
@@ -255,33 +259,33 @@ Permission
 
 Policy
 
-Object hanya mengetahui dirinya sendiri.
+Field hanya mendeskripsikan informasi bisnis.
 
 ---
 
 # Normative Requirements
 
-Object MUST mempunyai Name.
+Field MUST mempunyai Name.
 
-Object MUST mempunyai Code.
+Field MUST mempunyai Code.
 
-Object MUST mempunyai Purpose.
+Field MUST mempunyai Meaning.
 
-Object MUST mempunyai minimal satu Field.
+Field MUST dimiliki oleh tepat satu Object.
 
-Object MUST NOT mengetahui implementasi Runtime.
+Field MUST menggunakan satu Data Type.
 
-Object MUST NOT mengetahui implementasi Storage.
+Field MUST NOT mengetahui implementasi Runtime.
 
-Object SHOULD menggunakan istilah bisnis.
+Field MUST NOT mengetahui implementasi Storage.
 
-Object SHOULD mempunyai nama yang mudah dipahami.
+Field SHOULD menggunakan istilah bisnis.
 
-Object MAY mempunyai Description.
+Field SHOULD merepresentasikan satu informasi.
 
-Object MAY mempunyai Icon.
+Field MAY mempunyai Description.
 
-Object MAY mempunyai Category.
+Field MAY mempunyai Category.
 
 ---
 
@@ -291,24 +295,128 @@ Object
 
 Customer
 
-Purpose
-
-Mengelola informasi pelanggan.
-
-Fields
+Field
 
 Customer Name
 
-Phone Number
+Meaning
 
-Email Address
+Nama resmi pelanggan.
 
-Customer Type
+Data Type
 
-Registration Date
+Person Name
+
+---
+
+Object
+
+Expense
+
+Field
+
+Expense Amount
+
+Meaning
+
+Nilai biaya yang diajukan.
+
+Data Type
+
+Money
+
+---
+
+Object
+
+Inspection
+
+Field
+
+Inspection Date
+
+Meaning
+
+Tanggal pelaksanaan inspeksi.
+
+Data Type
+
+Date
 
 ---
 
 Object
 
 Asset
+
+Field
+
+Asset Status
+
+Meaning
+
+Status operasional aset.
+
+Data Type
+
+Selection
+
+---
+
+# Non Goals
+
+Field tidak mendeskripsikan.
+
+User Interface.
+
+Validation.
+
+Visibility.
+
+Layout.
+
+Workflow.
+
+Business Rule.
+
+Automation.
+
+Dashboard.
+
+Permission.
+
+Storage.
+
+API.
+
+Runtime.
+
+Field hanya mendeskripsikan informasi bisnis.
+
+---
+
+# Compatibility
+
+Field harus tetap kompatibel terhadap perubahan Runtime.
+
+Runtime dapat berubah.
+
+Storage dapat berubah.
+
+Renderer dapat berubah.
+
+AI dapat berubah.
+
+Definisi Field tetap.
+
+---
+
+# Notes
+
+Field merupakan Grammar yang mendeskripsikan informasi bisnis.
+
+Setiap Field dimiliki oleh tepat satu Object.
+
+Field menggunakan Data Type yang didefinisikan pada Reference Specification.
+
+Implementasi penyimpanan dan validasi ditentukan oleh Runtime.
