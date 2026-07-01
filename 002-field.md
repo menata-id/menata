@@ -1,5 +1,3 @@
-# BDL Grammar 002
-
 # Field
 
 Version
@@ -14,23 +12,29 @@ Draft
 
 # Purpose
 
-Field adalah representasi formal dari satu informasi yang dimiliki oleh sebuah Business Object.
+Field adalah Grammar BDL yang merepresentasikan satu informasi mengenai sebuah Object.
 
-Field bukan kolom database.
+Field merupakan unit informasi terkecil dalam Business Definition Language.
 
-Field bukan variabel pemrograman.
+Field mendeskripsikan apa yang diketahui mengenai suatu Object.
 
-Field bukan atribut ORM.
+---
 
-Field merupakan representasi dari informasi yang memiliki makna bagi bisnis.
+# Definition
+
+Field adalah representasi formal dari satu informasi bisnis.
+
+Field harus mempunyai arti yang jelas bagi pengguna bisnis.
+
+Field harus tetap mempunyai makna meskipun implementasi teknis berubah.
+
+Field bukan representasi implementasi teknis.
 
 ---
 
 # Philosophy
 
-Business Object merepresentasikan suatu konsep bisnis.
-
-Field merepresentasikan informasi yang menjelaskan konsep tersebut.
+Business memahami suatu Object melalui informasi yang dimilikinya.
 
 Contoh.
 
@@ -40,282 +44,250 @@ Customer
 
 Customer Name
 
-Phone Number
-
 Email Address
 
-Registration Date
+Phone Number
 
-Business mengenal informasi.
+Birth Date
 
-Runtime menentukan bagaimana informasi tersebut disimpan.
+Business OS menggunakan Field untuk merepresentasikan informasi tersebut.
 
----
-
-# Definition
-
-Field adalah Grammar BDL yang mendeskripsikan satu atribut dari Business Object.
-
-Field harus mempunyai arti yang jelas bagi bisnis.
-
-Jika suatu informasi tidak mempunyai makna bisnis,
-
-maka informasi tersebut bukan Field.
+Field merupakan atribut dari sebuah Object.
 
 ---
 
-# Characteristics
+# Core Characteristics
 
 Field:
 
-- dimiliki oleh tepat satu Business Object
-
-- memiliki Identity
-
-- memiliki Value Type
-
-- dapat digunakan oleh Form
-
-- dapat digunakan oleh View
-
-- dapat digunakan oleh Workflow
-
-- dapat digunakan oleh Rule
-
-- dapat digunakan oleh Dashboard
-
-- dapat digunakan oleh Automation
-
----
-
-# Identity
-
-Setiap Field mempunyai Identity.
-
-Identity bersifat unik dalam satu Business Object.
-
-Contoh.
-
-Customer Name
-
-Phone Number
-
-Email Address
+- Merepresentasikan satu informasi bisnis.
+- Dimiliki oleh tepat satu Object.
+- Mempunyai Meaning.
+- Menggunakan Data Type.
+- Bersifat independen terhadap implementasi.
+- Dapat digunakan oleh Grammar lain.
 
 ---
 
 # Required Properties
 
-Field wajib memiliki.
+Field MUST mempunyai:
 
-Name
-
-Code
-
-Value Type
+- Name
+- Code
+- Meaning
+- Data Type
 
 ---
 
 # Optional Properties
 
-Description
+Field MAY mempunyai:
 
-Label
-
-Placeholder
-
-Required
-
-Read Only
-
-Hidden
-
-Default Value
-
-Help Text
-
-Unique
-
-Searchable
-
-Filterable
-
-Sortable
-
-Display Order
-
-Category
-
-Tags
-
-Localization
+- Description
+- Display Name
+- Category
+- Tags
+- Documentation
+- Localization
 
 ---
 
-# Value Type
+# Grammar Relationships
 
-Business OS menggunakan Value Type.
+Field dimiliki oleh satu Object.
 
-Bukan Database Type.
+Field menggunakan satu Data Type.
+
+Field dapat digunakan oleh:
+
+- Action
+- Interaction
+- Workflow
+- Rule
+- View
+- Dashboard
+- Permission
+- Automation
+- Policy
+
+Grammar lain tidak mengubah definisi Field.
+
+---
+
+# Semantics
+
+Field merepresentasikan satu informasi bisnis.
+
+Satu Field hanya mempunyai satu makna.
 
 Contoh.
 
-Person Name
+Customer Name
 
-Organization Name
+Meaning
+
+Nama resmi pelanggan.
+
+---
 
 Phone Number
 
-Email Address
+Meaning
 
-Money
-
-Percentage
-
-Quantity
-
-Date
-
-Date Time
-
-Duration
-
-Boolean
-
-Address
-
-Location
-
-Document
-
-Image
-
-URL
-
-Rich Text
-
-Selection
-
-Reference
-
-Runtime menentukan bagaimana Value Type dipetakan ke Storage.
+Nomor telepon utama pelanggan.
 
 ---
 
-# Children
+Expense Amount
 
-Field tidak mempunyai Child Grammar.
+Meaning
 
-Field merupakan Grammar atomik.
-
----
-
-# Relationships
-
-Field dimiliki oleh satu Business Object.
-
-Field dapat digunakan oleh.
-
-Form
-
-View
-
-Workflow
-
-Rule
-
-Dashboard
-
-Automation
+Nilai biaya yang diajukan.
 
 ---
 
-# Lifecycle
+Inspection Date
 
-Draft
+Meaning
 
-↓
+Tanggal pelaksanaan inspeksi.
 
-Active
+Contoh yang bukan Field.
 
-↓
+customer_name_varchar
 
-Deprecated
+tbl_customer_name
 
-↓
+customer_name_column
 
-Removed
+customer_api
 
-Runtime harus menjaga kompatibilitas terhadap data yang sudah menggunakan Field tersebut.
-
----
-
-# Runtime Responsibility
-
-Runtime bertanggung jawab untuk.
-
-Memvalidasi Field.
-
-Menyimpan nilai.
-
-Mengambil nilai.
-
-Memberikan nilai kepada Renderer.
-
-Memberikan nilai kepada Workflow.
-
-Memberikan nilai kepada Rule.
-
-Runtime tidak mengetahui arti bisnis Field.
+phone_string
 
 ---
 
-# AI Responsibility
+# Normative Requirements
 
-AI bertanggung jawab.
+Field:
 
-Mengusulkan Field.
-
-Memberikan nama yang konsisten.
-
-Mengusulkan Value Type.
-
-Mengusulkan Validasi.
-
-Mengusulkan Default Value apabila diperlukan.
-
-AI tidak boleh membuat Field yang tidak memiliki makna bisnis.
-
----
-
-# Human Responsibility
-
-Business Analyst bertanggung jawab.
-
-Menentukan apakah Field memang dibutuhkan.
-
-Menentukan arti bisnis.
-
-Menentukan nama.
-
-Menentukan apakah wajib diisi.
-
----
-
-# Validation Rules
-
-Runtime harus memastikan.
-
-Name tidak kosong.
-
-Code unik.
-
-Value Type valid.
-
-Default Value sesuai dengan Value Type.
+- MUST mempunyai Name.
+- MUST mempunyai Code.
+- MUST mempunyai Meaning.
+- MUST menggunakan Data Type.
+- MUST dimiliki oleh tepat satu Object.
+- MUST merepresentasikan satu informasi bisnis.
+- MUST menggunakan istilah bisnis.
+- MUST bebas dari implementasi teknis.
+- SHOULD dapat digunakan kembali.
+- SHOULD mempunyai Description apabila diperlukan.
+- MAY mempunyai metadata tambahan.
 
 ---
 
 # Constraints
 
-Field
+Field tidak mengetahui implementasi teknis.
+
+Field tidak mengetahui Runtime.
+
+Field tidak mengetahui Storage.
+
+Field tidak mengetahui Renderer.
+
+Field tidak mengetahui Database.
+
+Field tidak mengetahui Framework.
+
+Field tidak mengetahui bahasa pemrograman.
+
+Field juga tidak mengetahui implementasi Grammar lain.
+
+---
+
+# Examples
+
+## Customer Name
+
+Meaning
+
+Nama resmi pelanggan.
+
+Data Type
+
+Person Name
+
+---
+
+## Expense Amount
+
+Meaning
+
+Nilai biaya yang diajukan.
+
+Data Type
+
+Money
+
+---
+
+## Inspection Date
+
+Meaning
+
+Tanggal pelaksanaan inspeksi.
+
+Data Type
+
+Date
+
+---
+
+## Asset Status
+
+Meaning
+
+Status operasional aset.
+
+Data Type
+
+Selection
+
+---
+
+# Non Goals
+
+Field tidak mendeskripsikan:
+
+- User Interface
+- Layout
+- Validation
+- Workflow
+- Rule
+- Permission
+- Automation
+- Runtime
+- Storage
+- API
+
+Field hanya mendeskripsikan satu informasi bisnis.
+
+---
+
+# Compatibility
+
+Perubahan Field harus menjaga makna bisnis.
+
+Perubahan Runtime, Storage, maupun Renderer tidak boleh mengubah definisi Field.
+
+---
+
+# Notes
+
+Field merupakan Grammar yang mendeskripsikan satu informasi bisnis.
+
+Setiap Field dimiliki oleh tepat satu Object.
+
+Data Type didefinisikan pada Reference Specification.
+
+Implementasi validasi, penyimpanan, maupun penyajian ditentukan oleh Grammar dan Runtime yang menggunakannya.
