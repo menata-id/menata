@@ -1,4 +1,4 @@
-# Business Definition Language Specification
+# Business Definition Language (BDL) Specification
 
 Version
 
@@ -12,9 +12,9 @@ Draft
 
 # Purpose
 
-Business Definition Language (BDL) adalah spesifikasi bahasa deklaratif untuk mendeskripsikan pengetahuan bisnis secara terstruktur.
+Business Definition Language (BDL) adalah spesifikasi bahasa deklaratif untuk merepresentasikan Business Knowledge.
 
-BDL menyediakan sekumpulan Grammar yang digunakan untuk membangun aplikasi bisnis tanpa bergantung pada teknologi implementasi.
+BDL menyediakan sekumpulan Grammar yang digunakan untuk mendefinisikan aplikasi bisnis secara independen dari teknologi implementasi.
 
 BDL merupakan fondasi dari Business OS.
 
@@ -22,313 +22,371 @@ BDL merupakan fondasi dari Business OS.
 
 # Scope
 
+## In Scope
+
 BDL mendefinisikan:
 
-- struktur pengetahuan bisnis
-- hubungan antar Grammar
-- aturan dasar Grammar
-- prinsip interoperabilitas
-- kontrak antara Business Knowledge dan Runtime
+- Grammar
+- Semantics
+- Grammar Relationships
+- Normative Rules
+- Business Metadata
 
-BDL tidak mendefinisikan implementasi.
+## Out of Scope
+
+BDL tidak mendefinisikan:
+
+- Runtime
+- Storage
+- Renderer
+- Deployment
+- Programming Language
+- Framework
+- Database
+- Infrastructure
 
 ---
 
 # Design Goals
 
-Business Definition Language dirancang agar.
+BDL dirancang agar:
 
-Satu definisi bisnis dapat digunakan oleh banyak Runtime.
+- Business Knowledge menjadi aset utama aplikasi.
+- Satu definisi bisnis dapat digunakan oleh banyak Runtime.
+- Satu definisi bisnis dapat dijalankan pada berbagai Renderer.
+- Definisi bisnis tetap stabil meskipun teknologi berubah.
+- Business Analyst dapat merancang aplikasi tanpa menulis kode.
+- AI dapat menghasilkan dan menyempurnakan aplikasi menggunakan BDL.
+- Grammar dapat digunakan kembali pada berbagai aplikasi.
+- Implementasi dapat berubah tanpa mengubah Business Knowledge.
 
-Satu definisi bisnis dapat dijalankan pada Web, Mobile, Desktop, Chat, Voice, maupun AI.
+Prinsip utama BDL adalah:
 
-Business dapat berkembang tanpa bergantung pada teknologi.
-
-Business Analyst dapat merancang aplikasi tanpa menulis kode.
-
-AI dapat menghasilkan aplikasi menggunakan metadata BDL.
-
-Runtime dapat berubah tanpa mengubah definisi bisnis.
-
-Renderer dapat berubah tanpa mengubah definisi bisnis.
-
-Storage dapat berubah tanpa mengubah definisi bisnis.
-
-Business Knowledge tetap menjadi aset utama organisasi.
+> **One Business Definition. Multiple Runtime.**
 
 ---
 
 # Design Principles
 
-Business First
+## Business First
 
 Keputusan desain selalu didasarkan pada kebutuhan bisnis.
 
 ---
 
-Metadata First
+## Knowledge Driven
 
-Aplikasi dibangun menggunakan metadata.
-
----
-
-Knowledge Driven
-
-Business Knowledge merupakan sumber utama aplikasi.
+Business Knowledge merupakan sumber utama definisi aplikasi.
 
 ---
 
-Declarative
+## Metadata First
+
+Aplikasi dibangun dari metadata, bukan dari kode program.
+
+---
+
+## Declarative
 
 BDL mendeskripsikan apa yang diinginkan.
 
-Runtime menentukan bagaimana cara menjalankannya.
+Cara menjalankannya ditentukan oleh Runtime.
 
 ---
 
-Runtime Independent
+## Runtime Independent
 
-Grammar tidak bergantung pada Runtime.
-
----
-
-Storage Independent
-
-Grammar tidak bergantung pada database.
+Grammar tidak bergantung pada Runtime tertentu.
 
 ---
 
-Renderer Independent
+## Storage Independent
 
-Grammar tidak bergantung pada User Interface.
-
----
-
-AI Native
-
-Grammar dirancang agar dapat dipahami dan dihasilkan oleh AI.
+Grammar tidak bergantung pada mekanisme penyimpanan data.
 
 ---
 
-Composable
+## Renderer Independent
+
+Grammar tidak bergantung pada media penyajian.
+
+---
+
+## AI Native
+
+Grammar dirancang agar mudah dipahami dan dihasilkan oleh AI.
+
+---
+
+## Composable
 
 Grammar dapat digabungkan menjadi solusi yang lebih besar.
 
 ---
 
-Extensible
+## Extensible
 
-Grammar dapat dikembangkan tanpa merusak kompatibilitas.
+Grammar dapat dikembangkan tanpa mengubah definisi dasarnya.
 
 ---
 
-Backward Compatible
+## Backward Compatible
 
 Perubahan Grammar harus menjaga kompatibilitas sejauh memungkinkan.
 
 ---
 
-# Core Grammar
+# Mental Model
+
+Business OS memisahkan pengetahuan bisnis dari implementasi.
+
+```text
+Business Reality
+        │
+        ▼
+Business Knowledge
+        │
+        ▼
+Business Definition Language
+        │
+        ▼
+Runtime
+        │
+        ▼
+Storage
+        │
+        ▼
+Renderer
+        │
+        ▼
+User Experience
+```
+
+---
+
+# Standard Grammar Set
 
 Business Definition Language terdiri dari Grammar berikut.
 
-| Grammar | Tujuan |
-|----------|---------|
+| Grammar | Responsibility |
+|----------|----------------|
 | Object | Merepresentasikan konsep bisnis. |
 | Field | Merepresentasikan informasi bisnis. |
 | Relationship | Merepresentasikan hubungan antar Object. |
 | Action | Merepresentasikan aktivitas bisnis. |
-| Interaction | Merepresentasikan cara Action dijalankan. |
+| Interaction | Merepresentasikan cara menjalankan Action. |
 | Workflow | Merepresentasikan perubahan siklus hidup bisnis. |
 | Rule | Merepresentasikan aturan bisnis. |
 | View | Merepresentasikan penyajian informasi. |
-| Dashboard | Merepresentasikan pemantauan kondisi bisnis. |
+| Dashboard | Merepresentasikan pemantauan informasi. |
 | Permission | Merepresentasikan hak akses. |
 | Automation | Merepresentasikan proses otomatis. |
 | Policy | Merepresentasikan kebijakan organisasi. |
 | Recipe | Merepresentasikan paket solusi bisnis. |
 | Workspace | Merepresentasikan lingkungan kerja. |
-| Application | Merepresentasikan komposisi seluruh Grammar. |
+| Application | Merepresentasikan komposisi Grammar menjadi aplikasi. |
+
+Setiap Grammar hanya mempunyai satu tanggung jawab.
 
 ---
 
 # Grammar Model
 
-Setiap Grammar mempunyai satu tanggung jawab.
-
 Grammar saling melengkapi.
 
-Tidak saling menggantikan.
+Tidak ada Grammar yang menggantikan Grammar lain.
 
 ```text
 Object
-    ├── Field
-    ├── Relationship
-    │
-    ├── Action
-    │      └── Interaction
-    │
-    ├── Workflow
-    ├── Rule
-    ├── View
-    ├── Dashboard
-    ├── Permission
-    ├── Automation
-    └── Policy
+Field
+Relationship
+Action
+Interaction
+Workflow
+Rule
+View
+Dashboard
+Permission
+Automation
+Policy
+
+        │
+        ▼
 
 Recipe
-    └── Menggabungkan Grammar menjadi solusi
+
+        │
+        ▼
 
 Workspace
-    └── Menjalankan Recipe
+
+        │
+        ▼
 
 Application
-    └── Menggabungkan seluruh Grammar
 ```
 
 ---
 
 # Layered Architecture
 
-Business OS terdiri dari beberapa lapisan.
+Business OS terdiri dari lapisan yang terpisah.
 
 ```text
+Business Reality
+
+↓
+
+Business Knowledge
+
+↓
+
 Business Definition Language
-            │
-            ▼
+
+↓
+
 Runtime
-            │
-            ▼
+
+↓
+
 Storage
-            │
-            ▼
+
+↓
+
 Renderer
-            │
-            ▼
+
+↓
+
 Deployment
 ```
 
-Setiap lapisan berkembang secara independen.
+Setiap lapisan mempunyai tanggung jawab yang berbeda.
+
+Perubahan pada satu lapisan tidak mengubah definisi lapisan lainnya.
 
 ---
 
 # Separation of Concerns
 
-BDL hanya mendeskripsikan pengetahuan bisnis.
+| Layer | Responsibility |
+|--------|----------------|
+| Business Reality | Aktivitas nyata organisasi |
+| Business Knowledge | Pengetahuan organisasi |
+| Business Definition Language | Representasi formal Business Knowledge |
+| Runtime | Menjalankan Grammar |
+| Storage | Menyimpan data |
+| Renderer | Menyajikan informasi |
+| Deployment | Menyediakan lingkungan operasional |
+| AI | Membantu menghasilkan dan menyempurnakan Grammar |
 
-Runtime menjalankan Grammar.
+---
 
-Storage menyimpan data.
+# Conformance
 
-Renderer menyajikan pengalaman pengguna.
+Suatu implementasi dinyatakan sesuai dengan BDL apabila:
 
-Deployment mengelola lingkungan operasional.
+- Mengimplementasikan seluruh Grammar yang digunakan.
+- Mematuhi seluruh aturan normatif.
+- Menjaga makna Business Knowledge.
+- Tidak mengubah Semantics Grammar.
 
-AI membantu menghasilkan dan menyempurnakan BDL.
-
-Setiap lapisan memiliki tanggung jawab yang berbeda.
+Implementasi dapat menggunakan teknologi apa pun.
 
 ---
 
 # Normative Requirements
 
-Seluruh Grammar BDL:
+Seluruh Grammar:
 
-MUST mempunyai identitas.
-
-MUST mempunyai tujuan yang jelas.
-
-MUST menggunakan istilah bisnis.
-
-MUST bebas dari implementasi teknis.
-
-MUST dapat dipahami oleh pengguna bisnis.
-
-MUST dapat diproses oleh Runtime.
-
-SHOULD dapat digunakan kembali.
-
-SHOULD menjaga kompatibilitas.
-
-SHOULD dapat dikomposisikan.
-
-MAY diperluas tanpa mengubah definisi dasar.
+- MUST mempunyai satu tanggung jawab utama.
+- MUST menggunakan istilah bisnis.
+- MUST bebas dari implementasi teknis.
+- MUST mempunyai Semantics yang jelas.
+- MUST dapat diproses oleh Runtime.
+- MUST dapat dipahami oleh pengguna bisnis.
+- MUST menjaga konsistensi dengan Grammar lain.
+- SHOULD dapat digunakan kembali.
+- SHOULD menjaga kompatibilitas.
+- SHOULD mudah dipahami oleh AI.
+- MAY diperluas tanpa mengubah definisi dasar.
 
 ---
 
 # Non Goals
 
-Business Definition Language tidak mendefinisikan.
+BDL tidak mendefinisikan:
 
-Bahasa pemrograman.
+- Bahasa pemrograman.
+- Framework.
+- Database.
+- ORM.
+- REST API.
+- GraphQL.
+- User Interface.
+- HTML.
+- CSS.
+- JavaScript.
+- Infrastruktur.
+- Deployment.
+- Algoritma implementasi.
 
-Framework.
-
-Database.
-
-ORM.
-
-REST API.
-
-GraphQL.
-
-User Interface.
-
-HTML.
-
-CSS.
-
-JavaScript.
-
-Mobile Framework.
-
-Infrastructure.
-
-Deployment.
-
-Seluruh implementasi tersebut berada di luar ruang lingkup BDL.
+BDL tidak bertujuan menggantikan bahasa pemrograman.
 
 ---
 
 # Compatibility
 
-Grammar BDL harus tetap stabil terhadap perubahan Runtime.
-
-Grammar BDL harus tetap stabil terhadap perubahan Storage.
-
-Grammar BDL harus tetap stabil terhadap perubahan Renderer.
-
-Grammar BDL harus tetap stabil terhadap perkembangan AI.
-
 Perubahan Grammar harus menjaga kompatibilitas sejauh memungkinkan.
+
+Business Knowledge harus tetap stabil meskipun Runtime, Storage, Renderer, maupun teknologi implementasi berubah.
+
+---
+
+# Reference Specifications
+
+BDL dapat menggunakan dokumen referensi pendukung.
+
+Contoh:
+
+- Data Types
+- Naming Conventions
+- Reserved Keywords
+- Glossary
+- Best Practices
+
+Dokumen referensi bukan merupakan Grammar.
 
 ---
 
 # Glossary
 
-Grammar
+**Business Reality**
+
+Aktivitas nyata yang terjadi dalam organisasi.
+
+**Business Knowledge**
+
+Pengetahuan yang menjelaskan bagaimana organisasi bekerja.
+
+**Grammar**
 
 Unit penyusun Business Definition Language.
 
-Business Knowledge
-
-Pengetahuan yang merepresentasikan cara organisasi bekerja.
-
-Metadata
+**Metadata**
 
 Representasi deklaratif dari Business Knowledge.
 
-Runtime
+**Runtime**
 
 Komponen yang menjalankan Grammar.
 
-Storage
+**Storage**
 
 Komponen yang menyimpan data.
 
-Renderer
+**Renderer**
 
-Komponen yang menyajikan informasi kepada pengguna.
+Komponen yang menyajikan informasi.
 
 ---
 
@@ -338,4 +396,4 @@ Business Definition Language merupakan fondasi seluruh Business OS.
 
 Seluruh Grammar mengikuti spesifikasi ini.
 
-Dokumen ini menjadi acuan sebelum mempelajari setiap Grammar secara rinci.
+Implementasi teknis dijelaskan pada spesifikasi Runtime, Renderer, Storage, AI, dan Reference secara terpisah.
