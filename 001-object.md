@@ -1,6 +1,4 @@
-# BDL Grammar 001
-
-# Business Object
+# Object
 
 Version
 
@@ -14,107 +12,88 @@ Draft
 
 # Purpose
 
-Business Object adalah representasi formal dari suatu konsep bisnis.
+Object adalah Grammar BDL yang merepresentasikan suatu konsep yang memiliki makna bagi organisasi.
 
-Business Object bukan tabel database.
+Object merupakan fondasi utama Business Definition Language.
 
-Business Object bukan Class.
+Seluruh aplikasi Business OS dibangun dari kumpulan Object yang saling berhubungan.
 
-Business Object bukan Entity Framework.
+Object bukan implementasi teknis.
 
-Business Object adalah representasi pengetahuan bisnis.
-
-Contoh:
-
-Customer
-
-Supplier
-
-Invoice
-
-Meeting
-
-Course
-
-Lesson
-
-Asset
-
-Inspection
-
-Employee
-
-Knowledge
-
-Action
-
-Observation
-
-Business Object adalah fondasi seluruh Business OS.
+Object merupakan representasi pengetahuan bisnis.
 
 ---
 
 # Philosophy
 
-Business Object merepresentasikan sesuatu yang memiliki makna bagi bisnis.
-
-Jika suatu konsep tidak memiliki makna bisnis,
-
-maka konsep tersebut bukan Business Object.
-
----
-
-# Characteristics
-
-Business Object:
-
-- memiliki identitas
-
-- memiliki atribut
-
-- dapat memiliki relasi
-
-- dapat memiliki workflow
-
-- dapat memiliki permission
-
-- dapat memiliki view
-
-- dapat memiliki automation
-
-- dapat memiliki dashboard
-
-Business Object tidak memiliki implementasi.
-
----
-
-# Identity
-
-Setiap Business Object memiliki Identity.
-
-Identity bersifat unik dalam sebuah Workspace.
-
-Contoh.
+Business berpikir menggunakan konsep.
 
 Customer
 
+Supplier
+
 Employee
+
+Asset
 
 Inspection
 
-Asset
+Invoice
+
+Purchase Order
+
+Finding
+
+Knowledge
+
+Course
+
+Lesson
+
+Business OS menggunakan Object untuk merepresentasikan konsep-konsep tersebut.
+
+Object merupakan "kata benda" (noun) dalam Business Definition Language.
+
+---
+
+# Definition
+
+Object adalah representasi formal dari suatu konsep bisnis.
+
+Object harus dapat dipahami oleh pengguna bisnis.
+
+Object harus tetap bermakna meskipun teknologi berubah.
+
+Jika suatu konsep tidak mempunyai makna bisnis,
+
+maka konsep tersebut bukan Object.
+
+---
+
+# Core Characteristics
+
+Object:
+
+- mempunyai identitas
+- mempunyai Purpose
+- mempunyai satu atau lebih Field
+- dapat mempunyai Relationship
+- bersifat independen
+- dapat digunakan oleh Grammar lain
+
+Object tidak mengetahui bagaimana Grammar lain menggunakannya.
 
 ---
 
 # Required Properties
 
-Business Object wajib memiliki.
+Object wajib memiliki.
 
 Name
 
 Code
 
-Description
+Purpose
 
 Version
 
@@ -122,208 +101,214 @@ Version
 
 # Optional Properties
 
+Description
+
 Display Name
+
+Category
 
 Icon
 
 Color
 
-Category
-
 Tags
 
 Owner
 
-Recipe
-
 Localization
 
----
-
-# Children
-
-Business Object dapat memiliki.
-
-Fields
-
-Relationships
-
-Forms
-
-Views
-
-Workflow
-
-Rules
-
-Permissions
-
-Automation
-
-Policies
+Documentation
 
 ---
 
-# Example
+# Grammar Relationships
 
-Business Object
+Object mempunyai.
 
-Customer
+Field
 
-Description
+Relationship
 
-Data pelanggan.
+---
 
-Fields
+Object digunakan oleh.
 
-Name
+Action
 
-Email
-
-Phone
-
-Address
+Interaction
 
 Workflow
 
-Prospect
+Rule
 
-↓
-
-Customer
-
-↓
-
-Inactive
-
-Views
-
-Table
-
-Card
+View
 
 Dashboard
 
-Customer Summary
+Automation
+
+Permission
+
+Policy
+
+Recipe
+
+Workspace
+
+Application
+
+Object tidak mengetahui bagaimana Grammar tersebut menggunakannya.
+
+---
+
+# Semantics
+
+Object harus merepresentasikan konsep yang stabil.
+
+Contoh.
+
+Customer
+
+Supplier
+
+Employee
+
+Invoice
+
+Asset
+
+Inspection
+
+Knowledge
+
+Object tidak dibuat berdasarkan implementasi.
+
+Contoh yang salah.
+
+tbl_customer
+
+customer_model
+
+invoice_service
+
+inspection_controller
+
+customer_api
 
 ---
 
 # Constraints
 
-Business Object tidak boleh mengetahui.
+Object tidak boleh mengetahui.
 
 Database
 
-Go
+Table
+
+Column
+
+Primary Key
+
+Foreign Key
+
+ORM
 
 SQL
 
-HTML
+Go
 
-REST
+Python
+
+Java
+
+REST API
 
 GraphQL
 
-Platform Service
+HTML
+
+CSS
+
+JavaScript
+
+Docker
 
 Infrastructure
 
----
+Object juga tidak mengetahui.
 
-# Runtime Responsibility
+Action
 
-Runtime bertanggung jawab untuk.
+Interaction
 
-Memuat Object.
+Workflow
 
-Memvalidasi Object.
+Rule
 
-Menghubungkan Object.
+View
 
-Menampilkan Object.
+Dashboard
 
-Menyimpan Object.
+Automation
 
-Menjalankan Workflow.
+Permission
 
-Menjalankan Rule.
+Policy
 
-Business Object tidak mengetahui bagaimana Runtime bekerja.
-
----
-
-# AI Responsibility
-
-AI bertanggung jawab.
-
-Menghasilkan Business Object.
-
-Memberi nama yang tepat.
-
-Mengusulkan Relationship.
-
-Mengusulkan Workflow.
-
-Mengusulkan View.
-
-Namun AI tidak boleh menghasilkan implementasi Runtime.
+Object hanya mengetahui dirinya sendiri.
 
 ---
 
-# Human Responsibility
+# Normative Requirements
 
-Business Analyst bertanggung jawab.
+Object MUST mempunyai Name.
 
-Menentukan apakah suatu Object memang memiliki makna bisnis.
+Object MUST mempunyai Code.
 
-Jika tidak,
+Object MUST mempunyai Purpose.
 
-jangan dibuat.
+Object MUST mempunyai minimal satu Field.
+
+Object MUST NOT mengetahui implementasi Runtime.
+
+Object MUST NOT mengetahui implementasi Storage.
+
+Object SHOULD menggunakan istilah bisnis.
+
+Object SHOULD mempunyai nama yang mudah dipahami.
+
+Object MAY mempunyai Description.
+
+Object MAY mempunyai Icon.
+
+Object MAY mempunyai Category.
 
 ---
 
-# Design Rules
+# Examples
 
-Nama harus menggunakan istilah bisnis.
-
-Jangan menggunakan istilah teknis.
-
-Contoh.
-
-Benar.
+Object
 
 Customer
 
-Invoice
+Purpose
 
-Meeting
+Mengelola informasi pelanggan.
 
-Inspection
+Fields
 
-Salah.
+Customer Name
 
-tbl_customer
+Phone Number
 
-CustomerModel
+Email Address
 
-CustomerEntity
+Customer Type
 
-CustomerRecord
-
----
-
-# Compatibility
-
-Business Object harus kompatibel dengan seluruh Runtime Business OS.
-
-Runtime boleh berubah.
-
-Business Object tetap.
+Registration Date
 
 ---
 
-# Future Extension
+Object
 
-Business Object dapat diperluas.
-
-Namun definisi dasar tidak boleh berubah.
+Asset
