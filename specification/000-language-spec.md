@@ -447,3 +447,174 @@ The language may evolve to include additional Grammar as new requirements emerge
 Future Grammar MUST follow the same language principles defined by this specification.
 
 The introduction of new Grammar SHOULD extend the language rather than redefine existing concepts.
+
+---
+
+# Conformance
+
+A Machine Interpreter conforms to the Menata Language Specification if it:
+
+- correctly interprets the Grammar it claims to support,
+- preserves the semantics defined by this specification,
+- produces behavior consistent with the expressed Business Knowledge,
+- complies with all applicable normative requirements.
+
+A Machine Interpreter MAY support only a subset of the language.
+
+Unsupported Grammar MUST be clearly identified.
+
+A Machine Interpreter MUST NOT silently change the meaning of Business Knowledge.
+
+---
+
+# Compatibility
+
+Business Knowledge should remain stable over time.
+
+New language versions SHOULD preserve compatibility whenever reasonably possible.
+
+Machine Interpreters SHOULD support Business Knowledge created by earlier language versions.
+
+If compatibility cannot be preserved, the specification MUST clearly define the incompatibility.
+
+Backward compatibility is preferred over unnecessary language changes.
+
+---
+
+# Normative Requirements
+
+The following keywords are interpreted as described in RFC 2119.
+
+- MUST
+- MUST NOT
+- SHOULD
+- SHOULD NOT
+- MAY
+
+---
+
+## Language
+
+The language:
+
+- MUST express Business Knowledge.
+- MUST remain implementation independent.
+- MUST define clear semantics.
+- MUST be human readable.
+- MUST be machine interpretable.
+- SHOULD remain simple.
+- SHOULD evolve incrementally.
+- MAY be extended through additional Grammar.
+
+---
+
+## Grammar
+
+Each Grammar:
+
+- MUST have one primary responsibility.
+- MUST define clear semantics.
+- MUST remain consistent with other Grammar.
+- MUST avoid overlapping responsibilities.
+- SHOULD be independently understandable.
+- SHOULD be reusable.
+- MAY reference other Grammar where appropriate.
+
+---
+
+## Business Knowledge
+
+Business Knowledge:
+
+- MUST remain independent from implementation technology.
+- MUST preserve its meaning across Machine Interpretations.
+- SHOULD remain stable over time.
+- SHOULD evolve without unnecessary disruption.
+- MAY be interpreted by multiple independent Machine Interpreters.
+
+---
+
+## Machine Interpretation
+
+Machine Interpretation:
+
+- MUST preserve the semantics of Business Knowledge.
+- MUST NOT redefine the meaning of the language.
+- SHOULD produce deterministic results whenever possible.
+- MAY generate source code, executable systems, configurations, or other implementation artifacts.
+
+---
+
+# Non-goals
+
+The Menata Language Specification intentionally does not define:
+
+- Programming Languages
+- Source Code
+- Databases
+- Frameworks
+- APIs
+- User Interfaces
+- Deployment
+- Infrastructure
+- AI Models
+- Machine Learning Algorithms
+- Runtime Architectures
+- Implementation Strategies
+
+These concerns belong to Machine Interpretation rather than the language itself.
+
+---
+
+# Versioning
+
+The Menata language evolves through published specification versions.
+
+Each version defines:
+
+- supported Grammar,
+- language semantics,
+- normative requirements,
+- compatibility expectations.
+
+Machine Interpreters SHOULD declare which language version they support.
+
+Business Knowledge SHOULD specify the language version it conforms to.
+
+---
+
+# Evolution
+
+The language is expected to evolve.
+
+Future versions SHOULD:
+
+- preserve existing Business Knowledge whenever possible,
+- introduce improvements incrementally,
+- avoid unnecessary breaking changes,
+- maintain conceptual consistency.
+
+Language evolution should prioritize long-term stability over rapid feature growth.
+
+---
+
+# Implementation Independence
+
+The Menata language intentionally avoids prescribing implementation details.
+
+Different Machine Interpreters may choose different implementation strategies.
+
+For example, a Machine Interpreter may produce:
+
+- source code,
+- executable applications,
+- workflow configurations,
+- automation definitions,
+- AI agents,
+- or other executable systems.
+
+All implementations should preserve the same Business Knowledge.
+
+Implementation diversity is encouraged.
+
+Language consistency is mandatory.
