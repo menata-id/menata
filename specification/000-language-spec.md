@@ -1,4 +1,4 @@
-# Business Definition Language (BDL) Specification
+# Menata Language Specification
 
 Version
 
@@ -10,13 +10,37 @@ Draft
 
 ---
 
+# Introduction
+
+**Menata** is a declarative language for expressing Business Knowledge.
+
+The primary purpose of Menata is to provide a stable and implementation-independent representation of Business Knowledge.
+
+Menata separates **Business Knowledge** from **Machine Interpretation**, allowing Business Knowledge to evolve independently from implementation technology.
+
+The language itself does not define how Business Knowledge is executed.
+
+Execution is the responsibility of Machine Interpretation.
+
+This specification defines the language.
+
+It does not define its implementation.
+
+---
+
 # Purpose
 
-Business Definition Language (BDL) adalah spesifikasi bahasa deklaratif untuk merepresentasikan Business Knowledge.
+The purpose of Menata is to establish a common language for representing Business Knowledge.
 
-BDL menyediakan sekumpulan Grammar yang digunakan untuk mendefinisikan aplikasi bisnis secara independen dari teknologi implementasi.
+The language is intended to:
 
-BDL merupakan fondasi dari Business OS.
+- express Business Knowledge consistently,
+- preserve Business Knowledge independently of technology,
+- enable multiple Machine Interpretations,
+- support collaboration between business experts, developers, and AI,
+- reduce the dependency of Business Knowledge on implementation technology.
+
+Menata treats Business Knowledge as a long-term organizational asset.
 
 ---
 
@@ -24,376 +48,96 @@ BDL merupakan fondasi dari Business OS.
 
 ## In Scope
 
-BDL mendefinisikan:
+This specification defines:
 
-- Grammar
-- Semantics
+- Language Grammar
+- Language Semantics
 - Grammar Relationships
-- Normative Rules
-- Business Metadata
+- Language Rules
+- Conformance Requirements
+- Compatibility Requirements
+
+---
 
 ## Out of Scope
 
-BDL tidak mendefinisikan:
+This specification does not define:
 
-- Runtime
-- Storage
-- Renderer
+- Programming Languages
+- Source Code
+- Runtime Engines
+- AI Models
+- Databases
+- User Interfaces
+- Frameworks
 - Deployment
-- Programming Language
-- Framework
-- Database
 - Infrastructure
+- Machine Interpretation
+
+These topics belong to their respective specifications.
 
 ---
 
-# Design Goals
+# Language Goals
 
-BDL dirancang agar:
+Menata is designed to achieve the following goals.
 
-- Business Knowledge menjadi aset utama aplikasi.
-- Satu definisi bisnis dapat digunakan oleh banyak Runtime.
-- Satu definisi bisnis dapat dijalankan pada berbagai Renderer.
-- Definisi bisnis tetap stabil meskipun teknologi berubah.
-- Business Analyst dapat merancang aplikasi tanpa menulis kode.
-- AI dapat menghasilkan dan menyempurnakan aplikasi menggunakan BDL.
-- Grammar dapat digunakan kembali pada berbagai aplikasi.
-- Implementasi dapat berubah tanpa mengubah Business Knowledge.
+## Business Knowledge First
 
-Prinsip utama BDL adalah:
+Business Knowledge is the primary artifact of the language.
 
-> **One Business Definition. Multiple Runtime.**
+Implementation technology is secondary.
 
 ---
 
-# Design Principles
+## Implementation Independence
 
-## Business First
+Business Knowledge should remain stable while implementation technologies continue to evolve.
 
-Keputusan desain selalu didasarkan pada kebutuhan bisnis.
-
----
-
-## Knowledge Driven
-
-Business Knowledge merupakan sumber utama definisi aplikasi.
+A change in implementation should not require redefining Business Knowledge.
 
 ---
 
-## Metadata First
+## Human Readability
 
-Aplikasi dibangun dari metadata, bukan dari kode program.
+Business Knowledge should be understandable by business professionals.
 
----
-
-## Declarative
-
-BDL mendeskripsikan apa yang diinginkan.
-
-Cara menjalankannya ditentukan oleh Runtime.
+The language should be readable without requiring programming knowledge.
 
 ---
 
-## Runtime Independent
+## Machine Interpretability
 
-Grammar tidak bergantung pada Runtime tertentu.
+The language should be interpretable consistently by machines.
 
----
-
-## Storage Independent
-
-Grammar tidak bergantung pada mekanisme penyimpanan data.
+Different Machine Interpretations should preserve the same Business Knowledge.
 
 ---
 
-## Renderer Independent
+## Reusability
 
-Grammar tidak bergantung pada media penyajian.
-
----
-
-## AI Native
-
-Grammar dirancang agar mudah dipahami dan dihasilkan oleh AI.
+Business Knowledge should be reusable across multiple applications, organizations, and implementation technologies whenever possible.
 
 ---
 
-## Composable
+## Composability
 
-Grammar dapat digabungkan menjadi solusi yang lebih besar.
+Complex Business Knowledge should be constructed from smaller and reusable language elements.
 
----
-
-## Extensible
-
-Grammar dapat dikembangkan tanpa mengubah definisi dasarnya.
+Each Grammar should have a single responsibility.
 
 ---
 
-## Backward Compatible
+## Extensibility
 
-Perubahan Grammar harus menjaga kompatibilitas sejauh memungkinkan.
+The language should evolve without unnecessarily breaking existing Business Knowledge.
 
----
-
-# Mental Model
-
-Business OS memisahkan pengetahuan bisnis dari implementasi.
-
-```text
-Business Reality
-        │
-        ▼
-Business Knowledge
-        │
-        ▼
-Business Definition Language
-        │
-        ▼
-Runtime
-        │
-        ▼
-Storage
-        │
-        ▼
-Renderer
-        │
-        ▼
-User Experience
-```
+New Grammar should extend the language rather than replace existing concepts.
 
 ---
 
-# Standard Grammar Set
+## Long-term Stability
 
-Business Definition Language terdiri dari Grammar berikut.
+Business Knowledge should outlive implementation technology.
 
-| Grammar | Responsibility |
-|----------|----------------|
-| Object | Merepresentasikan konsep bisnis. |
-| Field | Merepresentasikan informasi bisnis. |
-| Relationship | Merepresentasikan hubungan antar Object. |
-| Action | Merepresentasikan aktivitas bisnis. |
-| Interaction | Merepresentasikan cara menjalankan Action. |
-| Workflow | Merepresentasikan perubahan siklus hidup bisnis. |
-| Rule | Merepresentasikan aturan bisnis. |
-| View | Merepresentasikan penyajian informasi. |
-| Dashboard | Merepresentasikan pemantauan informasi. |
-| Permission | Merepresentasikan hak akses. |
-| Automation | Merepresentasikan proses otomatis. |
-| Policy | Merepresentasikan kebijakan organisasi. |
-| Recipe | Merepresentasikan paket solusi bisnis. |
-| Workspace | Merepresentasikan lingkungan kerja. |
-| Application | Merepresentasikan komposisi Grammar menjadi aplikasi. |
-
-Setiap Grammar hanya mempunyai satu tanggung jawab.
-
----
-
-# Grammar Model
-
-Grammar saling melengkapi.
-
-Tidak ada Grammar yang menggantikan Grammar lain.
-
-```text
-Object
-Field
-Relationship
-Action
-Interaction
-Workflow
-Rule
-View
-Dashboard
-Permission
-Automation
-Policy
-
-        │
-        ▼
-
-Recipe
-
-        │
-        ▼
-
-Workspace
-
-        │
-        ▼
-
-Application
-```
-
----
-
-# Layered Architecture
-
-Business OS terdiri dari lapisan yang terpisah.
-
-```text
-Business Reality
-
-↓
-
-Business Knowledge
-
-↓
-
-Business Definition Language
-
-↓
-
-Runtime
-
-↓
-
-Storage
-
-↓
-
-Renderer
-
-↓
-
-Deployment
-```
-
-Setiap lapisan mempunyai tanggung jawab yang berbeda.
-
-Perubahan pada satu lapisan tidak mengubah definisi lapisan lainnya.
-
----
-
-# Separation of Concerns
-
-| Layer | Responsibility |
-|--------|----------------|
-| Business Reality | Aktivitas nyata organisasi |
-| Business Knowledge | Pengetahuan organisasi |
-| Business Definition Language | Representasi formal Business Knowledge |
-| Runtime | Menjalankan Grammar |
-| Storage | Menyimpan data |
-| Renderer | Menyajikan informasi |
-| Deployment | Menyediakan lingkungan operasional |
-| AI | Membantu menghasilkan dan menyempurnakan Grammar |
-
----
-
-# Conformance
-
-Suatu implementasi dinyatakan sesuai dengan BDL apabila:
-
-- Mengimplementasikan seluruh Grammar yang digunakan.
-- Mematuhi seluruh aturan normatif.
-- Menjaga makna Business Knowledge.
-- Tidak mengubah Semantics Grammar.
-
-Implementasi dapat menggunakan teknologi apa pun.
-
----
-
-# Normative Requirements
-
-Seluruh Grammar:
-
-- MUST mempunyai satu tanggung jawab utama.
-- MUST menggunakan istilah bisnis.
-- MUST bebas dari implementasi teknis.
-- MUST mempunyai Semantics yang jelas.
-- MUST dapat diproses oleh Runtime.
-- MUST dapat dipahami oleh pengguna bisnis.
-- MUST menjaga konsistensi dengan Grammar lain.
-- SHOULD dapat digunakan kembali.
-- SHOULD menjaga kompatibilitas.
-- SHOULD mudah dipahami oleh AI.
-- MAY diperluas tanpa mengubah definisi dasar.
-
----
-
-# Non Goals
-
-BDL tidak mendefinisikan:
-
-- Bahasa pemrograman.
-- Framework.
-- Database.
-- ORM.
-- REST API.
-- GraphQL.
-- User Interface.
-- HTML.
-- CSS.
-- JavaScript.
-- Infrastruktur.
-- Deployment.
-- Algoritma implementasi.
-
-BDL tidak bertujuan menggantikan bahasa pemrograman.
-
----
-
-# Compatibility
-
-Perubahan Grammar harus menjaga kompatibilitas sejauh memungkinkan.
-
-Business Knowledge harus tetap stabil meskipun Runtime, Storage, Renderer, maupun teknologi implementasi berubah.
-
----
-
-# Reference Specifications
-
-BDL dapat menggunakan dokumen referensi pendukung.
-
-Contoh:
-
-- Data Types
-- Naming Conventions
-- Reserved Keywords
-- Glossary
-- Best Practices
-
-Dokumen referensi bukan merupakan Grammar.
-
----
-
-# Glossary
-
-**Business Reality**
-
-Aktivitas nyata yang terjadi dalam organisasi.
-
-**Business Knowledge**
-
-Pengetahuan yang menjelaskan bagaimana organisasi bekerja.
-
-**Grammar**
-
-Unit penyusun Business Definition Language.
-
-**Metadata**
-
-Representasi deklaratif dari Business Knowledge.
-
-**Runtime**
-
-Komponen yang menjalankan Grammar.
-
-**Storage**
-
-Komponen yang menyimpan data.
-
-**Renderer**
-
-Komponen yang menyajikan informasi.
-
----
-
-# Notes
-
-Business Definition Language merupakan fondasi seluruh Business OS.
-
-Seluruh Grammar mengikuti spesifikasi ini.
-
-Implementasi teknis dijelaskan pada spesifikasi Runtime, Renderer, Storage, AI, dan Reference secara terpisah.
+The language should prioritize long-term compatibility over short-term convenience.
