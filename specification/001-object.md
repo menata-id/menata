@@ -1,422 +1,254 @@
-# Field
+# 001 — Object
 
 Version
 
 0.1 Draft
 
-Status
-
-Draft
-
 ---
 
 # Purpose
 
-Field adalah Grammar BDL yang merepresentasikan satu informasi yang dimiliki oleh sebuah Object.
+An Object represents a business concept.
 
-Field merupakan unit informasi terkecil dalam Business Definition Language.
+It is the primary unit used to describe Business Knowledge in Menata.
 
-Field bukan kolom database.
+Everything expressed in Menata begins with an Object.
 
-Field bukan atribut ORM.
+Examples include:
 
-Field bukan variabel pemrograman.
+- Customer
+- Employee
+- Purchase Request
+- Design Request
+- Incident Report
+- Meeting
+- Asset
+- Training
 
-Field merupakan representasi informasi bisnis.
+An Object describes a concept in the business domain.
+
+It does not describe database tables, classes, APIs, or implementation details.
 
 ---
 
-# Philosophy
+# Object Structure
 
-Business memahami suatu Object melalui informasi yang dimilikinya.
+An Object may contain one or more Grammar components.
 
-Contoh.
+Typical components include:
 
+- Description
+- Field
+- Relationship
+- Workflow
+- Constraint
+- Permission
+- Page
+
+Not every Object requires every component.
+
+Only the Business Knowledge that exists needs to be described.
+
+---
+
+# Object Name
+
+The Object Name identifies the business concept.
+
+Examples
+
+```text
 Customer
 
-↓
+Purchase Request
 
-Customer Name
+Design Request
 
-Phone Number
+Incident Report
+```
 
-Email Address
+Object names should use business terminology.
 
-Registration Date
+Avoid technical or implementation-oriented names.
 
-Business OS menggunakan Field untuk merepresentasikan informasi tersebut.
+Good
 
-Field merupakan "atribut" dari sebuah Object.
+```text
+Purchase Request
 
----
+Expense Claim
 
-# Definition
+Meeting
+```
 
-Field adalah representasi formal dari satu informasi bisnis.
+Avoid
 
-Field harus mempunyai arti yang dapat dipahami oleh pengguna bisnis.
+```text
+PurchaseRequestEntity
 
-Field harus tetap bermakna meskipun teknologi berubah.
+PurchaseRequestTable
 
-Jika suatu informasi tidak mempunyai makna bisnis,
-
-maka informasi tersebut bukan Field.
-
----
-
-# Core Characteristics
-
-Field:
-
-- mempunyai identitas
-- mempunyai Meaning
-- dimiliki oleh satu Object
-- menggunakan Data Type
-- bersifat independen terhadap implementasi
-- dapat digunakan oleh Grammar lain
-
-Field tidak mengetahui bagaimana Grammar lain menggunakannya.
+PurchaseRequestDTO
+```
 
 ---
 
-# Required Properties
+# Description
 
-Field wajib memiliki.
+An Object may include a Description.
 
-Name
+The Description explains the purpose of the business concept.
 
-Code
+Example
 
-Meaning
+```text
+Description
+
+Request for creating design materials.
+```
+
+Descriptions exist to help people understand Business Knowledge.
+
+They do not affect Machine Interpretation.
 
 ---
 
-# Optional Properties
+# Composition
+
+Objects are composed from Grammar.
+
+For example,
+
+```text
+Design Request
 
 Description
 
-Display Name
+...
 
-Category
+Information
 
-Tags
-
-Localization
-
-Documentation
-
----
-
-# Grammar Relationships
-
-Field dimiliki oleh.
-
-Object
-
----
-
-Field menggunakan.
-
-Data Type
-
----
-
-Field dapat digunakan oleh.
-
-Action
-
-Interaction
+...
 
 Workflow
 
-Rule
+...
 
-View
+Constraints
 
-Dashboard
+...
 
-Automation
+Permissions
 
-Permission
+...
 
-Policy
+Pages
 
-Application
+...
+```
 
-Field tidak mengetahui bagaimana Grammar tersebut menggunakannya.
+The authoring style above is intended for humans.
 
----
+Machine Interpretation maps these sections to the corresponding Grammar defined by the language specification.
 
-# Semantics
+For example,
 
-Field merepresentasikan satu informasi bisnis.
+| Authoring Style | Grammar |
+|-----------------|---------|
+| Information | Field |
+| Constraints | Constraint |
+| Pages | Page |
 
-Satu Field hanya mempunyai satu makna.
-
-Contoh.
-
-Customer Name
-
-↓
-
-Nama resmi pelanggan.
+This allows Business Knowledge to remain natural for humans while remaining consistent for Machine Interpretation.
 
 ---
 
-Phone Number
+# Principles
 
-↓
+An Object represents Business Knowledge.
 
-Nomor telepon utama pelanggan.
+An Object is technology neutral.
 
----
+An Object is declarative.
 
-Expense Amount
-
-↓
-
-Nilai pengeluaran yang diajukan.
+An Object describes the business, not its implementation.
 
 ---
 
-Inspection Date
+# Example
 
-↓
+```text
+Design Request
 
-Tanggal pelaksanaan inspeksi.
+Description
 
-Contoh yang salah.
+Request for creating design materials.
 
-customer_name_varchar
+Information
 
-tbl_customer_name
-
-customer_name_column
-
-phone_string
-
-email_text
-
----
-
-# Constraints
-
-Field tidak boleh mengetahui.
-
-Database
-
-Table
-
-Column
-
-Primary Key
-
-Foreign Key
-
-ORM
-
-SQL
-
-Go
-
-Python
-
-Java
-
-REST API
-
-GraphQL
-
-HTML
-
-CSS
-
-JavaScript
-
-Docker
-
-Infrastructure
-
-Implementasi Data Type
-
-Field juga tidak mengetahui.
-
-Action
-
-Interaction
+- Requester : User
+- Design Type : Poster | Thumbnail | Banner 2:1
+- Due Date : Date
+- Title : Text
+- Description : Rich Text
 
 Workflow
 
-Rule
+Draft
 
-View
+    Submit -> Submitted
 
-Dashboard
+Submitted
 
-Automation
+    Accept -> Accepted
 
-Permission
+    Reject -> Rejected
 
-Policy
+Accepted
 
-Field hanya mendeskripsikan informasi bisnis.
+    Start -> In Progress
 
----
+In Progress
 
-# Normative Requirements
+    Complete -> Completed
 
-Field MUST mempunyai Name.
+Completed
 
-Field MUST mempunyai Code.
+Rejected
 
-Field MUST mempunyai Meaning.
+Constraints
 
-Field MUST dimiliki oleh tepat satu Object.
+- Title is required.
+- Due Date must be after today.
 
-Field MUST menggunakan satu Data Type.
+Permissions
 
-Field MUST NOT mengetahui implementasi Runtime.
+Requester
 
-Field MUST NOT mengetahui implementasi Storage.
+- Submit
 
-Field SHOULD menggunakan istilah bisnis.
+Designer
 
-Field SHOULD merepresentasikan satu informasi.
+- Accept
+- Reject
+- Start
+- Complete
 
-Field MAY mempunyai Description.
+Pages
 
-Field MAY mempunyai Category.
-
----
-
-# Examples
-
-Object
-
-Customer
-
-Field
-
-Customer Name
-
-Meaning
-
-Nama resmi pelanggan.
-
-Data Type
-
-Person Name
+- Request Form : Form
+- My Requests : Card
+- All Requests : Table
+```
 
 ---
 
-Object
+# Summary
 
-Expense
+An Object is the highest-level construct in Menata.
 
-Field
+It represents a business concept and serves as the container for Business Knowledge.
 
-Expense Amount
+Objects are composed from Grammar, while the authoring style remains natural and easy for humans to read.
 
-Meaning
-
-Nilai biaya yang diajukan.
-
-Data Type
-
-Money
-
----
-
-Object
-
-Inspection
-
-Field
-
-Inspection Date
-
-Meaning
-
-Tanggal pelaksanaan inspeksi.
-
-Data Type
-
-Date
-
----
-
-Object
-
-Asset
-
-Field
-
-Asset Status
-
-Meaning
-
-Status operasional aset.
-
-Data Type
-
-Selection
-
----
-
-# Non Goals
-
-Field tidak mendeskripsikan.
-
-User Interface.
-
-Validation.
-
-Visibility.
-
-Layout.
-
-Workflow.
-
-Business Rule.
-
-Automation.
-
-Dashboard.
-
-Permission.
-
-Storage.
-
-API.
-
-Runtime.
-
-Field hanya mendeskripsikan informasi bisnis.
-
----
-
-# Compatibility
-
-Field harus tetap kompatibel terhadap perubahan Runtime.
-
-Runtime dapat berubah.
-
-Storage dapat berubah.
-
-Renderer dapat berubah.
-
-AI dapat berubah.
-
-Definisi Field tetap.
-
----
-
-# Notes
-
-Field merupakan Grammar yang mendeskripsikan informasi bisnis.
-
-Setiap Field dimiliki oleh tepat satu Object.
-
-Field menggunakan Data Type yang didefinisikan pada Reference Specification.
-
-Implementasi penyimpanan dan validasi ditentukan oleh Runtime.
+Machine Interpretation is responsible for mapping the authoring style into the formal language grammar.
