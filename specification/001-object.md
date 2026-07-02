@@ -8,52 +8,50 @@ Version
 
 # Purpose
 
-An Object represents a business concept.
-
-It is the primary unit used to describe Business Knowledge in Menata.
+An Object represents a Business Concept.
 
 Everything expressed in Menata begins with an Object.
+
+An Object provides the context for organizing Business Knowledge.
+
+It is the highest-level construct of the language.
+
+---
+
+# Definition
+
+An Object describes something that exists in a business.
 
 Examples include:
 
 - Customer
 - Employee
+- Supplier
+- Product
+- Asset
 - Purchase Request
 - Design Request
 - Incident Report
-- Meeting
-- Asset
 - Training
+- Meeting
 
-An Object describes a concept in the business domain.
+An Object describes the business.
 
-It does not describe database tables, classes, APIs, or implementation details.
+It does not describe software.
 
----
+It does not describe databases.
 
-# Object Structure
+It does not describe programming languages.
 
-An Object may contain one or more Grammar components.
-
-Typical components include:
-
-- Description
-- Field
-- Relationship
-- Workflow
-- Constraint
-- Permission
-- Page
-
-Not every Object requires every component.
-
-Only the Business Knowledge that exists needs to be described.
+It does not describe user interfaces.
 
 ---
 
 # Object Name
 
-The Object Name identifies the business concept.
+Every Object has a name.
+
+The Object Name should use the terminology naturally used by the business.
 
 Examples
 
@@ -67,28 +65,30 @@ Design Request
 Incident Report
 ```
 
-Object names should use business terminology.
-
-Avoid technical or implementation-oriented names.
+Avoid implementation-oriented names.
 
 Good
 
 ```text
-Purchase Request
+Customer
+
+Meeting
 
 Expense Claim
 
-Meeting
+Purchase Request
 ```
 
 Avoid
 
 ```text
-PurchaseRequestEntity
+CustomerEntity
 
 PurchaseRequestTable
 
 PurchaseRequestDTO
+
+tbl_customer
 ```
 
 ---
@@ -97,7 +97,7 @@ PurchaseRequestDTO
 
 An Object may include a Description.
 
-The Description explains the purpose of the business concept.
+The Description explains the purpose of the Business Concept.
 
 Example
 
@@ -107,71 +107,30 @@ Description
 Request for creating design materials.
 ```
 
-Descriptions exist to help people understand Business Knowledge.
+Descriptions improve readability.
 
-They do not affect Machine Interpretation.
+They do not change the meaning of Business Knowledge.
 
 ---
 
 # Composition
 
-Objects are composed from Grammar.
+An Object is composed from smaller language constructs.
 
-For example,
+Typical constructs include:
 
-```text
-Design Request
+- Field
+- Relationship
+- Workflow
+- Constraint
+- Permission
+- Page
 
-Description
+An Object only contains the constructs necessary to describe its Business Knowledge.
 
-...
+Simple business concepts may require only a few constructs.
 
-Information
-
-...
-
-Workflow
-
-...
-
-Constraints
-
-...
-
-Permissions
-
-...
-
-Pages
-
-...
-```
-
-The authoring style above is intended for humans.
-
-Machine Interpretation maps these sections to the corresponding Grammar defined by the language specification.
-
-For example,
-
-| Authoring Style | Grammar |
-|-----------------|---------|
-| Information | Field |
-| Constraints | Constraint |
-| Pages | Page |
-
-This allows Business Knowledge to remain natural for humans while remaining consistent for Machine Interpretation.
-
----
-
-# Principles
-
-An Object represents Business Knowledge.
-
-An Object is technology neutral.
-
-An Object is declarative.
-
-An Object describes the business, not its implementation.
+More complex business concepts may require many.
 
 ---
 
@@ -198,6 +157,11 @@ Draft
 
     Submit -> Submitted
 
+        Notify Design Team
+            if Design Type = Poster
+
+        Record Design Request Register
+
 Submitted
 
     Accept -> Accepted
@@ -212,6 +176,8 @@ In Progress
 
     Complete -> Completed
 
+        Notify Requester
+
 Completed
 
 Rejected
@@ -219,6 +185,8 @@ Rejected
 Constraints
 
 - Title is required.
+- Description is required.
+- Due Date is required.
 - Due Date must be after today.
 
 Permissions
@@ -239,16 +207,35 @@ Pages
 - Request Form : Form
 - My Requests : Card
 - All Requests : Table
+- Dashboard : Dashboard
 ```
+
+The example above represents one Object.
+
+It describes a complete Business Concept independently from implementation technology.
+
+---
+
+# Principles
+
+An Object represents Business Knowledge.
+
+An Object should use business terminology.
+
+An Object should remain declarative.
+
+An Object should remain technology neutral.
+
+An Object should describe the business rather than its implementation.
 
 ---
 
 # Summary
 
-An Object is the highest-level construct in Menata.
+An Object is the primary building block of Menata.
 
-It represents a business concept and serves as the container for Business Knowledge.
+Every Business Concept is represented as an Object.
 
-Objects are composed from Grammar, while the authoring style remains natural and easy for humans to read.
+Business Knowledge is organized through Objects.
 
-Machine Interpretation is responsible for mapping the authoring style into the formal language grammar.
+Objects are later composed into complete Business Knowledge using the language constructs defined by the Menata Specification.
