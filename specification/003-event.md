@@ -225,3 +225,36 @@ Every Monday
     Generate Weekly Report
 ```
 
+---
+
+# Principles
+
+An Event represents something that happens in Business Reality.
+
+Events describe when Business Knowledge should respond.
+
+Events should use business terminology.
+
+Events should remain declarative.
+
+Events should remain technology neutral.
+
+Events describe business intent rather than implementation.
+
+Business responses should be expressed using natural business language.
+
+Machine Interpretation is responsible for realizing Event responses.
+
+---
+
+# Summary
+
+An Event represents a business occurrence.
+
+Events define when Business Knowledge should respond.
+
+Events may originate from business activities, time, dates, external systems, or other business occurrences.
+
+An Event may produce one or more business responses, optionally subject to conditions.
+
+Machine Interpretation is responsible for realizing Events while preserving the Business Knowledge expressed by Menata.
