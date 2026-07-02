@@ -299,3 +299,151 @@ Applications execute the implementation.
 This separation allows Business Knowledge to evolve independently from implementation technology.
 
 It also enables multiple Machine Interpretations to realize the same Business Knowledge.
+
+---
+
+# Language Grammar
+
+Menata represents Business Knowledge through a collection of Grammar.
+
+Each Grammar has a single responsibility.
+
+Grammar should complement one another.
+
+No Grammar should duplicate the responsibility of another Grammar.
+
+Together, the Grammar define the vocabulary of the Menata language.
+
+---
+
+# Standard Grammar
+
+The core language consists of the following Grammar.
+
+| Grammar | Responsibility |
+|----------|----------------|
+| Object | Represents business concepts. |
+| Field | Represents business information. |
+| Relationship | Represents relationships between Objects. |
+| Action | Represents business capabilities and operations. |
+| Interaction | Represents how Actions are performed or invoked. |
+| Workflow | Represents business lifecycle and state transitions. |
+| Rule | Represents business constraints and decision logic. |
+| View | Represents information presentation. |
+| Dashboard | Represents monitoring and business insight. |
+| Permission | Represents authorization and access control. |
+| Automation | Represents automatic execution of business behavior. |
+| Policy | Represents organizational policies and governance. |
+
+Each Grammar is defined in its own specification document.
+
+---
+
+# Grammar Responsibility
+
+Each Grammar MUST have one primary responsibility.
+
+A Grammar SHOULD NOT perform responsibilities that belong to another Grammar.
+
+For example:
+
+- Objects describe business concepts.
+- Actions describe business capabilities.
+- Rules describe business constraints.
+- Workflows describe business progression.
+
+The separation of responsibilities improves readability, maintainability, and interoperability.
+
+---
+
+# Grammar Composition
+
+Business Knowledge is expressed by composing multiple Grammar.
+
+No individual Grammar is intended to describe an entire business domain.
+
+Instead, Grammar cooperate to describe different aspects of Business Knowledge.
+
+For example:
+
+```text
+Customer
+    │
+    ├── Fields
+    │
+    ├── Relationships
+    │
+    ├── Actions
+    │
+    ├── Workflow
+    │
+    ├── Rules
+    │
+    └── Permissions
+```
+
+Each Grammar contributes one aspect of the complete Business Knowledge.
+
+---
+
+# Language Model
+
+The Menata language is compositional.
+
+```text
+Business Knowledge
+        │
+        ▼
+Grammar
+        │
+        ▼
+Language
+```
+
+Business Knowledge is represented by combining Grammar.
+
+The language emerges from the composition of Grammar.
+
+No single Grammar represents the complete language.
+
+---
+
+# Extensibility
+
+The language is designed to evolve.
+
+New Grammar MAY be introduced in future versions.
+
+Additional Grammar MUST satisfy the following principles:
+
+- provide one clear responsibility,
+- remain consistent with existing Grammar,
+- preserve Business Knowledge semantics,
+- avoid unnecessary overlap,
+- maintain backward compatibility whenever possible.
+
+Existing Grammar SHOULD remain stable.
+
+Breaking changes SHOULD be minimized.
+
+---
+
+# Grammar Independence
+
+Each Grammar SHOULD be independently understandable.
+
+Learning one Grammar SHOULD NOT require knowledge of all other Grammar.
+
+However, Grammar are designed to cooperate through clearly defined relationships.
+
+This allows Business Knowledge to grow incrementally while remaining consistent.
+
+---
+
+# Future Grammar
+
+The language may evolve to include additional Grammar as new requirements emerge.
+
+Future Grammar MUST follow the same language principles defined by this specification.
+
+The introduction of new Grammar SHOULD extend the language rather than redefine existing concepts.
