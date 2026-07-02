@@ -28,6 +28,28 @@ It does not define its implementation.
 
 ---
 
+# Language Identity
+
+Menata is a **Business Knowledge Representation Language**.
+
+Its purpose is to express Business Knowledge independently from implementation technology.
+
+Menata defines the boundary between **Business Knowledge** and **Machine Interpretation**.
+
+The language describes **what a business knows**, not **how machines implement it**.
+
+Machine Interpretation is intentionally outside the scope of the language.
+
+Different Machine Interpreters may realize the same Business Knowledge while preserving its meaning.
+
+Business Knowledge is the primary artifact.
+
+Machine Interpretation is an implementation concern.
+
+Business Knowledge should remain stable while Machine Interpretation continues to evolve.
+
+---
+
 # Purpose
 
 The purpose of Menata is to establish a common language for representing Business Knowledge.
