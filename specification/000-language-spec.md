@@ -95,3 +95,296 @@ This specification does not define:
 - Machine Interpretation.
 
 These concerns belong to their respective implementation technologies.
+
+# Language Goals
+
+Menata is designed with the following goals.
+
+## Business Knowledge First
+
+Business Knowledge is the primary artifact of the language.
+
+Implementation technology is secondary.
+
+A change in implementation should not require redefining Business Knowledge.
+
+---
+
+## Implementation Independence
+
+Business Knowledge should remain stable while implementation technologies continue to evolve.
+
+The same Business Knowledge may be realized through different Machine Interpretations.
+
+---
+
+## Human Readability
+
+Business Knowledge should be understandable by business professionals.
+
+The language should be readable without requiring programming knowledge.
+
+---
+
+## Machine Interpretability
+
+Business Knowledge should be interpretable consistently by machines.
+
+Different Machine Interpretations should preserve the same meaning.
+
+---
+
+## Composability
+
+Complex Business Knowledge should be constructed from smaller language components.
+
+Each language component should have one primary responsibility.
+
+---
+
+## Extensibility
+
+The language should evolve carefully.
+
+New language components may be introduced without unnecessarily breaking existing Business Knowledge.
+
+---
+
+## Long-term Stability
+
+Business Knowledge should outlive implementation technology.
+
+Long-term compatibility is preferred over short-term convenience.
+
+---
+
+# Core Concepts
+
+Menata is built upon a small number of fundamental concepts.
+
+These concepts define the boundary between Business Knowledge and Machine Interpretation.
+
+Every language component ultimately exists to express one or more of these concepts.
+
+---
+
+## Business Reality
+
+Business Reality is the real world in which an organization operates.
+
+It includes:
+
+- people,
+- organizations,
+- physical objects,
+- activities,
+- events,
+- policies,
+- regulations,
+- decisions,
+- and every observable aspect of business.
+
+Business Reality exists independently of software.
+
+The purpose of Menata is to represent Business Reality through Business Knowledge.
+
+---
+
+## Business Knowledge
+
+Business Knowledge is an organization's understanding of Business Reality.
+
+It explains:
+
+- what exists,
+- what happens,
+- what rules apply,
+- who is responsible,
+- how work is performed,
+- and how the organization operates.
+
+Business Knowledge belongs to the organization.
+
+It exists independently of software.
+
+Software is one possible realization of Business Knowledge.
+
+---
+
+## Menata
+
+Menata is a declarative language for expressing Business Knowledge.
+
+The language provides a consistent way to represent Business Knowledge independently of implementation technology.
+
+Menata describes Business Knowledge.
+
+It does not describe implementation.
+
+---
+
+## Machine Interpretation
+
+Machine Interpretation is the process of realizing Business Knowledge expressed in Menata.
+
+Machine Interpretation is intentionally outside the scope of the language.
+
+Possible Machine Interpretations include, but are not limited to:
+
+- AI,
+- code generators,
+- compilers,
+- interpreters,
+- runtime engines,
+- automation platforms,
+- future technologies.
+
+Different Machine Interpretations should preserve the same Business Knowledge.
+
+---
+
+## Application
+
+An Application is one possible realization of Business Knowledge.
+
+Applications are implementation artifacts produced through Machine Interpretation.
+
+Different applications may realize the same Business Knowledge while preserving its meaning.
+
+# Conceptual Model
+
+The relationship between the core concepts is illustrated below.
+
+```text
+Business Reality
+        │
+        ▼
+Business Knowledge
+        │
+        ▼
+Menata
+        │
+        ▼
+Machine Interpretation
+        │
+        ▼
+Application
+```
+
+Each layer has a distinct responsibility.
+
+| Layer | Responsibility |
+|--------|----------------|
+| Business Reality | The real world in which organizations operate. |
+| Business Knowledge | Understanding and describing Business Reality. |
+| Menata | Expressing Business Knowledge using a formal language. |
+| Machine Interpretation | Realizing Business Knowledge through implementation technologies. |
+| Application | One possible implementation of Business Knowledge. |
+
+Business Knowledge remains independent from implementation technology.
+
+Machine Interpretation is responsible for realizing the language while preserving its meaning.
+
+---
+
+# Language Grammar
+
+Menata expresses Business Knowledge through a small set of language grammar.
+
+Each Grammar has one primary responsibility.
+
+Grammar complement one another.
+
+No Grammar should duplicate the responsibility of another Grammar.
+
+Together, the Grammar form the vocabulary of the Menata language.
+
+---
+
+# Standard Grammar
+
+The core language consists of the following Grammar.
+
+| Grammar | Responsibility |
+|----------|----------------|
+| Object | Represents Business Concepts. |
+| Field | Represents Business Information. |
+| Event | Represents Business Behaviors triggered by business occurrences. |
+| Constraint | Represents Business Rules that must always be satisfied. |
+| Permission | Represents Business Responsibilities and Authorizations. |
+| View | Represents how Business Knowledge is organized and presented. |
+
+Each Grammar is defined in its own specification document.
+
+---
+
+# Grammar Composition
+
+Business Knowledge is expressed by combining multiple Grammar.
+
+An Object may contain one or more language components.
+
+Only the components necessary to express the Business Knowledge should be defined.
+
+Example
+
+```text
+Design Request
+
+Fields
+
+- Requester : User
+- Design Type : Poster | Thumbnail | Banner 2:1
+- Due Date : Date
+- Title : Text
+- Description : Rich Text
+
+Events
+
+When Submit
+
+    Status Submitted
+
+    Notify Design Team
+
+When Complete
+
+    Status Completed
+
+    Notify Requester
+
+Constraints
+
+- Title is required.
+- Due Date must be after today.
+
+Permissions
+
+Requester
+
+- Submit
+
+Designer
+
+- Complete
+
+Views
+
+- Request Form : Form
+- My Requests : Card
+- All Requests : Table
+```
+
+The same Business Knowledge may be realized by different Machine Interpretations while preserving its meaning.
+
+---
+
+# Grammar Independence
+
+Each Grammar should be understandable independently.
+
+However, Grammar are designed to work together to express complete Business Knowledge.
+
+Learning one Grammar should not require understanding every other Grammar.
+
+This enables Business Knowledge to evolve incrementally while remaining consistent.
