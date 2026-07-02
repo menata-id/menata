@@ -18,8 +18,6 @@ Business Knowledge should not.
 
 Business Knowledge written in Menata can be implemented by one or more Runtime implementations into business applications.
 
-Menata is the foundation for **Knowledge-Defined Software**.
-
 ---
 
 > ⚠️ **Research Project**
@@ -28,19 +26,19 @@ Menata is the foundation for **Knowledge-Defined Software**.
 >
 > The language specification is under active development and **breaking changes are expected** before version **1.0**.
 >
-> The current focus of this repository is **language design**, not runtime implementation.
+> The current focus of this repository is **language design**.
 >
-> Feedback, discussions, references, and constructive criticism are welcome.
+> Feedback, discussion, references, and constructive criticism are welcome.
 
 ---
 
-# Why Menata?
+## Why Menata?
 
 Business Knowledge is one of the most valuable assets of an organization.
 
-Unfortunately, Business Knowledge is often tightly coupled to programming languages, frameworks, databases, and user interfaces.
+Unfortunately, it is often tightly coupled to programming languages, frameworks, databases, and user interfaces.
 
-As technology evolves, organizations repeatedly rewrite applications—not because the business has changed, but because the technology has changed.
+As technology evolves, organizations repeatedly rewrite software—not because the business has changed, but because the technology has changed.
 
 Menata separates **Business Knowledge** from **implementation**.
 
@@ -50,38 +48,22 @@ Technology becomes replaceable.
 
 ---
 
-# Vision
+## Vision
 
-Business Knowledge should outlive technology.
+Menata is built on a simple belief.
 
-Business Knowledge should be understandable by both humans and AI.
+> **Business Knowledge should outlive technology.**
 
-Business Knowledge should be reusable.
+Business Knowledge should:
 
-Business Knowledge should be implementation independent.
-
-Business Knowledge should become a first-class engineering artifact.
-
----
-
-# Core Philosophy
-
-Menata follows several fundamental principles.
-
-- Business First
-- Knowledge Driven
-- Declarative
-- Runtime Independent
-- Storage Independent
-- Renderer Independent
-- AI Native
-- Composable
-- Extensible
-- Backward Compatible
+- remain implementation independent,
+- be understandable by both humans and AI,
+- be reusable across applications,
+- evolve independently from runtime technology.
 
 ---
 
-# Architecture
+## Architecture
 
 ```text
 Business Reality
@@ -97,231 +79,53 @@ Runtime
         │
         ▼
 Application
-        │
-        ▼
-User Experience
 ```
 
-Business Reality represents what actually happens inside an organization.
+Menata represents Business Knowledge.
 
-Business Knowledge represents organizational understanding of that reality.
+Runtime implementations execute it.
 
-Menata provides a formal language for representing Business Knowledge.
-
-Runtime implementations execute Menata definitions.
-
-Applications are generated or implemented from Menata.
+Applications become an implementation detail.
 
 ---
 
-# Language
+## Design Principles
 
-Menata represents Business Knowledge using a collection of Core Grammar.
-
-Current Core Grammar:
-
-- Object
-- Field
-- Relationship
-- Action
-- Interaction
-- Workflow
-- Rule
-- View
-- Dashboard
-- Permission
-- Automation
-- Policy
-
-Each Grammar has a single responsibility.
-
-Together they describe Business Knowledge.
+- Business First
+- Knowledge Driven
+- Declarative
+- Runtime Independent
+- AI Native
 
 ---
 
-# Ecosystem
+## Documentation
 
-The Menata ecosystem is expected to evolve into several specifications and implementations.
+The language specification is available in the `specification/` directory.
 
-## Language Specification
+The specification is developed incrementally through individual grammar documents.
 
-Defines the Menata language.
-
-Current repository focus.
+Current work includes the language foundation and core grammar.
 
 ---
 
-## Composition Specification *(Planned)*
+## Roadmap
 
-Defines how Business Knowledge is composed into complete business solutions.
-
-Planned concepts include:
-
-- Recipe
-- Workspace
-- Application
-
----
-
-## Runtime Specification *(Planned)*
-
-Defines how Menata is executed.
-
-Multiple Runtime implementations are expected.
-
-Examples:
-
-- Go Runtime
-- Java Runtime
-- Python Runtime
-
----
-
-## Reference Specification *(Planned)*
-
-Defines shared vocabularies used across the language.
-
-Examples:
-
-- Data Types
-- Naming Conventions
-- Reserved Keywords
-- Glossary
-- Best Practices
-
----
-
-# Design Goals
-
-Menata is designed so that:
-
-- Business Knowledge becomes the primary organizational asset.
-- One Business Definition can be implemented by multiple Runtime implementations.
-- Business Knowledge remains stable while technology evolves.
-- Business analysts can describe business systems without writing source code.
-- AI can understand, generate, validate, and improve Business Knowledge.
-- Runtime implementations remain replaceable.
-
-The fundamental principle is:
-
-> **One Business Definition. Multiple Runtime.**
-
----
-
-# Repository Structure
-
-```
-README.md
-
-manifesto.md
-
-design-principles.md
-
-specification/
-
-    language/
-
-        000-language-spec.md
-
-        001-object.md
-
-        002-field.md
-
-        003-relationship.md
-
-        004-action.md
-
-        ...
-```
-
-The repository structure will evolve together with the language.
-
----
-
-# Current Status
-
-Current stage:
-
-**Research Draft**
-
-The language specification is actively evolving.
-
-Breaking changes are expected until version **1.0**.
-
-The current goal is to design a stable language before building production-grade Runtime implementations.
-
----
-
-# Roadmap
-
-## Phase 1
-
-Language Specification
-
-- Foundation
-- Core Grammar
-- Reference Specification
-
----
-
-## Phase 2
-
-Composition Specification
-
-- Recipe
-- Workspace
-- Application
-
----
-
-## Phase 3
-
-Runtime Specification
-
+- Language Specification
 - Runtime
-- Storage
-- Renderer
-- AI Integration
+- Tooling
+- Reference Applications
 
 ---
 
-## Phase 4
-
-Reference Runtime
-
-- Go Runtime
-- Web Runtime
-- AI Authoring
-- CLI
-- Playground
-
----
-
-## Phase 5
-
-Reference Applications
-
-- Business OS
-- Sustainability Management
-- Learning Management
-- Knowledge Management
-- Asset Management
-- Project Management
-
----
-
-# Contributing
+## Contributing
 
 Menata is currently focused on language design.
 
-Discussions, ideas, references, critiques, and design proposals are highly appreciated.
-
-A formal RFC (Request for Comments) process is planned as the language matures.
+Ideas, discussions, critiques, academic references, and design proposals are highly appreciated.
 
 ---
 
-# License
+## License
 
 Licensed under the Apache License 2.0.
-
-See the LICENSE file for details.
