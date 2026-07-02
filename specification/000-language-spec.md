@@ -388,3 +388,205 @@ However, Grammar are designed to work together to express complete Business Know
 Learning one Grammar should not require understanding every other Grammar.
 
 This enables Business Knowledge to evolve incrementally while remaining consistent.
+
+---
+
+# Extensibility
+
+The Menata language is designed to evolve.
+
+New Grammar may be introduced in future versions when they represent new Business Knowledge that cannot be expressed by existing Grammar.
+
+Additional Grammar should:
+
+- have one primary responsibility,
+- remain consistent with the language principles,
+- avoid overlapping responsibilities,
+- preserve Business Knowledge semantics,
+- maintain compatibility whenever reasonably possible.
+
+Language evolution should prioritize simplicity over completeness.
+
+---
+
+# Conformance
+
+A Machine Interpreter conforms to the Menata Language Specification if it:
+
+- correctly interprets the Grammar it supports,
+- preserves the semantics defined by this specification,
+- produces behavior consistent with the expressed Business Knowledge,
+- clearly identifies unsupported Grammar.
+
+A Machine Interpreter may support only a subset of the language.
+
+Unsupported Grammar should be reported explicitly.
+
+Machine Interpretation must not change the meaning of Business Knowledge.
+
+---
+
+# Compatibility
+
+Business Knowledge should remain stable over time.
+
+New language versions should preserve compatibility whenever reasonably possible.
+
+Machine Interpreters should support Business Knowledge created by earlier language versions.
+
+If compatibility cannot be preserved, the incompatibility should be explicitly documented.
+
+Long-term compatibility is preferred over unnecessary language changes.
+
+---
+
+# Normative Requirements
+
+The following keywords are interpreted as described in RFC 2119.
+
+- MUST
+- MUST NOT
+- SHOULD
+- SHOULD NOT
+- MAY
+
+---
+
+## Language
+
+The language:
+
+- MUST express Business Knowledge.
+- MUST remain implementation independent.
+- MUST define clear semantics.
+- MUST be human readable.
+- MUST be machine interpretable.
+- SHOULD remain simple.
+- SHOULD evolve incrementally.
+- MAY be extended through additional Grammar.
+
+---
+
+## Grammar
+
+Each Grammar:
+
+- MUST have one primary responsibility.
+- MUST define clear semantics.
+- MUST remain consistent with other Grammar.
+- MUST avoid overlapping responsibilities.
+- SHOULD be independently understandable.
+- SHOULD be composable.
+
+---
+
+## Business Knowledge
+
+Business Knowledge:
+
+- MUST remain independent from implementation technology.
+- MUST preserve its meaning across Machine Interpretations.
+- SHOULD remain stable over time.
+- SHOULD evolve without unnecessary disruption.
+
+---
+
+## Machine Interpretation
+
+Machine Interpretation:
+
+- MUST preserve the semantics of Business Knowledge.
+- MUST NOT redefine the meaning of the language.
+- SHOULD produce consistent results.
+- MAY generate applications, source code, configurations, automation, AI agents, or other implementation artifacts.
+
+---
+
+# Non-goals
+
+The Menata Language Specification intentionally does not define:
+
+- programming languages,
+- source code,
+- databases,
+- frameworks,
+- APIs,
+- user interfaces,
+- deployment,
+- infrastructure,
+- runtime architectures,
+- implementation strategies,
+- AI models.
+
+These concerns belong to Machine Interpretation rather than the language itself.
+
+---
+
+# Versioning
+
+The Menata Language evolves through published specification versions.
+
+Each version defines:
+
+- language grammar,
+- language semantics,
+- normative requirements,
+- compatibility expectations.
+
+Machine Interpreters should declare the language version they support.
+
+Business Knowledge should specify the language version it conforms to.
+
+---
+
+# Glossary
+
+## Business Reality
+
+The real-world environment in which an organization operates.
+
+---
+
+## Business Knowledge
+
+An organization's understanding of Business Reality.
+
+---
+
+## Menata
+
+A declarative language for expressing Business Knowledge.
+
+---
+
+## Grammar
+
+A language construct used to express one aspect of Business Knowledge.
+
+---
+
+## Machine Interpretation
+
+The process of realizing Business Knowledge expressed in Menata.
+
+---
+
+## Machine Interpreter
+
+A technology that performs Machine Interpretation.
+
+---
+
+## Application
+
+One possible realization of Business Knowledge.
+
+---
+
+# Document Status
+
+This document is a Draft Specification.
+
+The language may continue to evolve before version 1.0.
+
+The goal of the current phase is conceptual stability rather than implementation completeness.
