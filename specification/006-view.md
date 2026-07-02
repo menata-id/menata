@@ -79,3 +79,103 @@ RequestScreen
 ListView1
 ```
 
+---
+
+# Presentation
+
+A View may define its preferred presentation.
+
+Presentation describes how Business Knowledge is intended to be organized.
+
+Examples include:
+
+```text
+Form
+
+List
+
+Detail
+
+Summary
+
+Calendar
+
+Timeline
+
+Dashboard
+
+Map
+```
+
+Presentation expresses business intent.
+
+Machine Interpretation determines how the presentation is realized.
+
+---
+
+# Multiple Views
+
+An Object may define multiple Views.
+
+Each View may present the same Business Knowledge differently depending on its business purpose.
+
+Example
+
+```text
+Views
+
+- Request Form : Form
+
+- My Requests : List
+
+- Request Details : Detail
+
+- Dashboard : Dashboard
+```
+
+Different Views may present the same Object without changing its Business Knowledge.
+
+---
+
+# Examples
+
+Design Request
+
+```text
+Views
+
+- Request Form : Form
+
+- My Requests : List
+
+- Request Details : Detail
+
+- Dashboard : Dashboard
+```
+
+Employee
+
+```text
+Views
+
+- Employee Directory : List
+
+- Employee Profile : Detail
+
+- Organization Chart : Dashboard
+```
+
+Project
+
+```text
+Views
+
+- Project Summary : Summary
+
+- Project Timeline : Timeline
+
+- Project Calendar : Calendar
+
+- Project Location : Map
+```
+
