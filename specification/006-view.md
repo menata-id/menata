@@ -179,3 +179,34 @@ Views
 - Project Location : Map
 ```
 
+---
+
+# Principles
+
+Views represent Business Knowledge.
+
+Views describe presentation intent.
+
+Views should use business terminology.
+
+Views describe what people need to see.
+
+Views remain declarative.
+
+Views remain technology neutral.
+
+Views should describe business purpose rather than presentation technology.
+
+Machine Interpretation is responsible for realizing Views while preserving their business meaning.
+
+---
+
+# Summary
+
+A View defines how Business Knowledge is organized and presented for a particular business purpose.
+
+An Object may define multiple Views, each serving a different business purpose.
+
+Views remain independent from implementation technology.
+
+Machine Interpretation is responsible for realizing each View while preserving the intended Business Knowledge.
