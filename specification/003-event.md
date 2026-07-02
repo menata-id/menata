@@ -99,3 +99,129 @@ When Webhook Received
 
 An implementation may support additional Event sources while preserving the same Business Knowledge.
 
+---
+
+# Event Responses
+
+An Event may produce one or more business responses.
+
+Business responses describe what the business intends to happen after an Event occurs.
+
+Examples include:
+
+- Notify
+- Create
+- Update
+- Generate
+- Record
+- Assign
+- Status Submitted
+
+Menata does not define a fixed set of responses.
+
+Business responses are expressed using natural business language.
+
+Machine Interpretation is responsible for realizing those responses.
+
+---
+
+# Conditions
+
+An Event may execute conditionally.
+
+Conditions describe when a business response should occur.
+
+Example
+
+```text
+When Submit
+
+    if Design Type = Poster
+
+        Notify Design Team
+```
+
+Another example
+
+```text
+Every Day
+
+    if Status = In Progress
+
+    if Due Date < Today
+
+        Notify Requester
+```
+
+Conditions describe Business Knowledge.
+
+They do not describe implementation logic.
+
+---
+
+# Examples
+
+Design Request
+
+```text
+Events
+
+When Submit
+
+    Status Submitted
+
+    Notify Design Team
+
+    Record Design Request Register
+
+When Accept
+
+    Status Accepted
+
+When Reject
+
+    Status Rejected
+
+When Start
+
+    Status In Progress
+
+When Complete
+
+    Status Completed
+
+    Notify Requester
+```
+
+Reminder
+
+```text
+Events
+
+Every Day 08:00
+
+    Notify User
+```
+
+Invoice
+
+```text
+Events
+
+When Payment Received
+
+    Status Paid
+
+    Notify Finance
+```
+
+Weekly Report
+
+```text
+Events
+
+Every Monday
+
+    Generate Weekly Report
+```
+
