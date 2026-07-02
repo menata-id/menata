@@ -618,3 +618,127 @@ All implementations should preserve the same Business Knowledge.
 Implementation diversity is encouraged.
 
 Language consistency is mandatory.
+
+---
+
+# Reference Specifications
+
+The Menata Language Specification may be accompanied by additional reference documents.
+
+Reference documents provide supporting information but do not define the language itself.
+
+Examples include:
+
+- Data Types
+- Naming Conventions
+- Reserved Keywords
+- Style Guide
+- Best Practices
+- Examples
+- Design Notes
+
+Reference documents are informative.
+
+They are not normative unless explicitly stated.
+
+---
+
+# Glossary
+
+## Application
+
+An executable realization of Business Knowledge produced through Machine Interpretation.
+
+---
+
+## Business Knowledge
+
+An organization's understanding of Business Reality.
+
+Business Knowledge describes concepts, activities, decisions, rules, responsibilities, and relationships within a business domain.
+
+---
+
+## Business Reality
+
+The real-world environment in which an organization operates.
+
+Business Reality exists independently of software and documentation.
+
+---
+
+## Grammar
+
+A language construct used to express one aspect of Business Knowledge.
+
+Each Grammar has one primary responsibility.
+
+---
+
+## Machine Interpretation
+
+The process of transforming Menata into executable systems.
+
+Machine Interpretation is outside the scope of this specification.
+
+---
+
+## Machine Interpreter
+
+A technology that performs Machine Interpretation.
+
+Examples include AI systems, compilers, interpreters, code generators, runtime engines, and future implementation technologies.
+
+---
+
+## Menata
+
+A declarative language for expressing Business Knowledge.
+
+Menata defines the boundary between Business Knowledge and Machine Interpretation.
+
+---
+
+## Semantics
+
+The meaning of a Grammar independent of any implementation technology.
+
+---
+
+## Specification
+
+A normative document defining the Menata language.
+
+---
+
+# Notes
+
+This document defines the Menata language.
+
+It does not define Machine Interpretation.
+
+The language is intentionally independent from implementation technology.
+
+Business Knowledge should remain stable while implementation technology continues to evolve.
+
+Future Machine Interpreters are expected to implement this specification while preserving the meaning of Business Knowledge.
+
+---
+
+# Acknowledgements
+
+The Menata Language Specification is developed as an open research project exploring Business Knowledge Representation as an implementation-independent language.
+
+The language continues to evolve through experimentation, implementation experience, academic study, and community discussion.
+
+---
+
+# Document Status
+
+This document is a Draft Specification.
+
+Language semantics may evolve before version 1.0.
+
+Breaking changes are expected during the research phase.
+
+The goal of this phase is conceptual stability rather than implementation completeness.
