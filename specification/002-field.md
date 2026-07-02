@@ -203,3 +203,34 @@ Fields
 - Reason : Rich Text
 ```
 
+---
+
+# Principles
+
+A Field represents one piece of Business Information.
+
+Field names should use business terminology.
+
+Fields should describe Business Information rather than implementation.
+
+Fields should remain technology neutral.
+
+Fields may reference other Objects.
+
+Fields should not describe business behavior.
+
+Business behavior belongs to Events.
+
+Business rules belong to Constraints.
+
+---
+
+# Summary
+
+A Field represents a single piece of Business Information.
+
+Fields describe the information required by an Object.
+
+Fields may represent simple values, predefined value lists, or references to other Objects.
+
+Together, Fields describe the Business Information of an Object while remaining independent from implementation technology.
