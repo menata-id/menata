@@ -1,16 +1,18 @@
-# Business OS Core Principles
+# Menata Design Principles
 
-Version 0.1 Draft
+Version
+
+0.1 Draft
 
 ---
 
 # Introduction
 
-Business OS dibangun berdasarkan seperangkat prinsip.
+Menata is designed around a small set of fundamental principles.
 
-Prinsip ini menjadi pedoman dalam setiap keputusan arsitektur.
+These principles guide the evolution of the language, its specification, and future machine interpreters.
 
-Jika suatu keputusan bertentangan dengan prinsip ini, maka keputusan tersebut harus dipertanyakan.
+Whenever a design decision conflicts with these principles, the decision should be questioned.
 
 ---
 
@@ -18,410 +20,167 @@ Jika suatu keputusan bertentangan dengan prinsip ini, maka keputusan tersebut ha
 
 ## Business First
 
-Business OS dibangun untuk menyelesaikan masalah bisnis.
+Business exists independently of technology.
 
-Bukan untuk mendemonstrasikan teknologi.
+Technology should adapt to Business Knowledge.
 
-Teknologi dapat berubah.
-
-Proses bisnis selalu menjadi fokus utama.
+Business Knowledge should never be constrained by implementation technology.
 
 ---
 
 # Principle 2
 
-## Metadata First
+## Knowledge First
 
-Semua hal harus terlebih dahulu dipertimbangkan sebagai Metadata.
+Business Knowledge is the primary asset of an organization.
 
-Jangan menulis Runtime baru apabila Metadata masih mampu merepresentasikan kebutuhan tersebut.
+Menata exists to express Business Knowledge.
 
-Pertanyaan pertama setiap fitur baru adalah:
+Machine implementations exist to realize it.
 
-> Apakah ini masih dapat dijelaskan sebagai Metadata?
-
-Jika Ya,
-
-jangan tambah kode.
+The language always prioritizes Business Knowledge over implementation concerns.
 
 ---
 
 # Principle 3
 
-## Runtime is Generic
+## Declarative
 
-Runtime tidak mengetahui bisnis user.
+Menata describes **what** a business is.
 
-Runtime tidak mengetahui CRM.
+It does not describe **how** machines should implement it.
 
-Runtime tidak mengetahui Accounting.
-
-Runtime tidak mengetahui Inventory.
-
-Runtime hanya mengetahui:
-
-- Metadata
-- Runtime Services
-- Platform Services
+Implementation is the responsibility of Machine Interpretation.
 
 ---
 
 # Principle 4
 
-## Everything is an Object
+## Technology Neutral
 
-Semua data bisnis direpresentasikan sebagai Business Object.
+Menata does not depend on any programming language, framework, database, AI model, runtime, or implementation technology.
 
-Contoh:
+Technology will continue to evolve.
 
-Customer
-
-Supplier
-
-Invoice
-
-Meeting
-
-Course
-
-Knowledge
-
-Inspection
-
-Employee
-
-Asset
-
-Semuanya memiliki bentuk yang sama.
-
-Object
-
-↓
-
-Fields
-
-↓
-
-Relations
-
-↓
-
-Metadata
+Business Knowledge should remain stable.
 
 ---
 
 # Principle 5
 
-## Everything is a View
+## Human Readable
 
-Data tidak memiliki tampilan bawaan.
+Business Knowledge should be understandable by humans.
 
-Satu Business Object dapat memiliki banyak View.
+Business analysts should be able to read it.
 
-Contoh:
+Developers should be able to implement it.
 
-Table
+Machines should be able to interpret it.
 
-Card
-
-Kanban
-
-Calendar
-
-Timeline
-
-Chart
-
-Map
-
-Dashboard
-
-Semua View dibuat dari Metadata.
+A language should be understandable before it is executable.
 
 ---
 
 # Principle 6
 
-## Everything is a Workflow
+## Machine Readable
 
-Setiap Object dapat memiliki Workflow.
+Menata is designed to be interpreted consistently by machines.
 
-Workflow bukan fitur khusus.
+Machine Interpretation may include:
 
-Workflow adalah Metadata.
+- AI
+- Code Generators
+- Compilers
+- Interpreters
+- Runtime Engines
+- Future technologies
 
-Contoh:
-
-Draft
-
-↓
-
-Review
-
-↓
-
-Approved
-
-↓
-
-Closed
+The language should remain independent from any particular implementation.
 
 ---
 
 # Principle 7
 
-## Rules are Declarative
+## Composable
 
-Business Rule tidak ditulis menggunakan source code.
+Complex Business Knowledge should be constructed from smaller concepts.
 
-Business Rule dijelaskan menggunakan Metadata.
+Each Grammar has one responsibility.
 
-Contoh:
+Grammar should compose rather than overlap.
 
-WHEN
-
-Expense Approved
-
-THEN
-
-Create Journal
-
-THEN
-
-Notify Finance
-
-Runtime yang menjalankan Rule.
+Composition is preferred over complexity.
 
 ---
 
 # Principle 8
 
-## UI is Metadata
+## Open Specification
 
-UI tidak dibuat menggunakan HTML secara manual.
+The Menata language specification is open.
 
-UI dijelaskan menggunakan Metadata.
+Anyone can build machine interpreters, tools, editors, validators, or other implementations, provided they conform to the language specification.
 
-Runtime memilih Renderer yang sesuai.
-
-Contoh:
-
-Desktop
-
-↓
-
-Table
-
-Mobile
-
-↓
-
-Card
-
-Watch
-
-↓
-
-Compact View
+An open language encourages innovation.
 
 ---
 
 # Principle 9
 
-## AI is Optional
+## Convention over Configuration
 
-Business OS tidak bergantung pada AI tertentu.
+The language provides consistent conventions.
 
-User dapat menggunakan:
+Most Business Knowledge should be expressible without excessive configuration.
 
-ChatGPT
-
-Claude
-
-Gemini
-
-DeepSeek
-
-Local LLM
-
-Wizard
-
-Manual Editor
-
-Semuanya menghasilkan Metadata yang sama.
+Conventions improve readability, interoperability, and machine interpretation.
 
 ---
 
 # Principle 10
 
-## Open Specification
-
-Spesifikasi Business OS bersifat terbuka.
-
-Siapa pun dapat membuat:
-
-Runtime
-
-CLI
-
-SDK
-
-AI
-
-Recipe
-
-Platform Service
-
-selama mengikuti Specification.
-
----
-
-# Principle 11
-
-## Convention over Configuration
-
-Business OS menyediakan default.
-
-User hanya mengubah jika diperlukan.
-
-AI selalu menghasilkan konfigurasi yang mengikuti Convention.
-
----
-
-# Principle 12
-
-## Composition over Customization
-
-Business OS lebih memilih menyusun Object yang sudah ada.
-
-Bukan membuat Runtime baru.
-
-Contoh:
-
-CRM
-
-=
-
-Lead
-
-+
-
-Customer
-
-+
-
-Activity
-
-+
-
-Task
-
-+
-
-Dashboard
-
-Bukan CRM Engine.
-
----
-
-# Principle 13
-
-## Platform Services are Universal
-
-Platform Service tidak mengetahui domain bisnis.
-
-Platform Service hanya menyediakan kemampuan.
-
-Contoh:
-
-Identity
-
-Storage
-
-Notification
-
-Communication
-
-PDF
-
-Search
-
-AI
-
-GIS
-
-Payment
-
-Realtime
-
-Media
-
----
-
-# Principle 14
-
-## Recipes are Knowledge
-
-Recipe bukan kode.
-
-Recipe adalah kumpulan Metadata.
-
-Recipe dapat:
-
-dipasang
-
-dibagikan
-
-diperbarui
-
-dikembangkan
-
-oleh komunitas.
-
----
-
-# Principle 15
-
-## Human Readable
-
-Metadata harus mudah dibaca manusia.
-
-Business Analyst harus dapat memahami Metadata.
-
-AI harus dapat menghasilkan Metadata.
-
-Developer harus dapat mengimplementasikan Runtime.
-
----
-
-# Principle 16
-
 ## Long-term Compatibility
 
-Metadata Version 1 harus tetap dapat dijalankan oleh Runtime di masa depan.
+Business Knowledge should outlive implementation technology.
 
-Compatibility lebih penting daripada fitur baru.
+The language should evolve carefully.
+
+Whenever possible, new language versions should preserve compatibility with existing Business Knowledge.
+
+Long-term stability is more valuable than short-term convenience.
 
 ---
 
 # Summary
 
-Business OS dibangun berdasarkan empat pilar utama.
+Menata separates Business Knowledge from Machine Interpretation.
 
+```text
+Business Reality
+        │
+        ▼
 Business Knowledge
+        │
+        ▼
+Menata
+        │
+        ▼
+Machine Interpretation
+        │
+        ▼
+Application
+```
 
-↓
+Business Reality is where work happens.
 
-Metadata
+Business Knowledge explains that reality.
 
-↓
+Menata expresses Business Knowledge.
 
-Runtime
+Machine Interpretation realizes it.
 
-↓
+Applications are one possible outcome.
 
-Platform Services
-
-Source Code bukan pusat sistem.
-
-Metadata adalah pusat sistem.
+The language remains stable while implementation technology continues to evolve.
