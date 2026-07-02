@@ -1,6 +1,6 @@
 # Menata
 
-> **A language for representing Business Knowledge.**
+> **A language that defines the boundary between Business Knowledge and Machine Interpretation.**
 
 Every organization runs on Business Knowledge.
 
@@ -26,58 +26,56 @@ But because software is expensive to build, difficult to change, and tightly cou
 
 Menata is a declarative language for expressing Business Knowledge independently from programming languages, frameworks, databases, and user interfaces.
 
-Business Knowledge expressed in Menata can be implemented by one or more Runtime implementations into business applications.
+Business Knowledge expressed in Menata can be interpreted by machines and transformed into business applications.
 
 ---
 
 > ⚠️ **Research Draft**
 >
-> Menata is currently an active research project.
+> Menata is an active research project.
 >
 > The language specification is evolving and **breaking changes are expected** before version **1.0**.
 >
 > The current focus of this repository is language design.
 >
-> Feedback, discussions, references, and constructive criticism are welcome.
+> Feedback, discussions, critiques, and academic references are highly appreciated.
 
 ---
 
 ## Why Menata?
 
-Software development is expensive.
-
-Business change is continuous.
-
-Organizations constantly make difficult decisions about which applications deserve to be built.
-
-Core business systems usually come first.
-
-Other business functions often wait.
-
-Sometimes forever.
-
-Yet every business activity already contains Business Knowledge.
+Every business activity contains Business Knowledge.
 
 If people know how to perform the work, the knowledge already exists.
 
-The problem is no longer creating Business Knowledge.
+Unfortunately, turning that knowledge into software is still expensive, slow, and highly dependent on implementation technology.
 
-The problem is turning Business Knowledge into software.
+As a result, organizations are forced to prioritize.
 
-Menata aims to make that transformation significantly simpler.
+Core systems are built first.
+
+Many other business functions wait.
+
+Sometimes forever.
+
+The problem is not the lack of Business Knowledge.
+
+The problem is the gap between Business Knowledge and software.
+
+Menata aims to bridge that gap.
 
 ---
 
 ## Vision
 
-We believe that every Business Knowledge deserves software.
+We believe that every Business Knowledge deserves implementation.
 
 Business Knowledge should:
 
 - be independent from implementation technology,
-- be understandable by both humans and AI,
+- be understandable by both humans and machines,
 - be reusable across applications,
-- evolve independently from runtime implementations,
+- evolve independently from implementation technology,
 - remain a long-term organizational asset.
 
 Software should evolve because Business Knowledge evolves.
@@ -98,7 +96,7 @@ Business Knowledge
 Menata
         │
         ▼
-Runtime
+Machine Interpretation
         │
         ▼
 Application
@@ -110,28 +108,28 @@ Business Knowledge explains how that work is performed.
 
 Menata provides a formal language for expressing that knowledge.
 
-Runtime implementations transform the language into executable applications.
+Machine Interpretation transforms Menata into executable systems.
 
-Applications become an implementation detail.
+Applications become one possible realization of Business Knowledge.
 
 ---
 
 ## Design Principles
 
-Menata is built around several fundamental principles.
+Menata is designed around several fundamental principles.
 
 - Business First
 - Knowledge First
 - Declarative
 - Runtime Independent
 - Human Readable
-- AI Native
+- Technology Neutral
 - Composable
 - Open Specification
 - Convention over Configuration
 - Long-term Compatibility
 
-A complete explanation of these principles is available in **design-principles.md**.
+The complete rationale is available in `design-principles.md`.
 
 ---
 
@@ -141,7 +139,7 @@ The language specification is developed incrementally.
 
 Each document defines one concept of the language.
 
-The current specification is available in the `specification/` directory.
+See the `specification/` directory for the complete specification.
 
 ---
 
@@ -150,7 +148,7 @@ The current specification is available in the `specification/` directory.
 The Menata ecosystem is expected to include:
 
 - Language Specification
-- Runtime Implementations
+- Machine Interpreters
 - Development Tools
 - AI-assisted Authoring
 - Reference Applications
