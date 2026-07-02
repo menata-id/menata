@@ -10,184 +10,151 @@ Version
 
 An Object represents a Business Concept.
 
-Everything expressed in Menata begins with an Object.
+Objects are the primary building blocks of Business Knowledge.
 
-An Object provides the context for organizing Business Knowledge.
-
-It is the highest-level construct of the language.
+Everything expressed in Menata belongs to an Object.
 
 ---
 
 # Definition
 
-An Object describes something that exists in a business.
+An Object represents something that exists within a Business Reality.
+
+An Object is not limited to documents or database entities.
+
+An Object may represent any Business Concept that is meaningful to an organization.
 
 Examples include:
 
+- User
 - Customer
 - Employee
-- Supplier
-- Product
+- Department
 - Asset
+- Project
 - Purchase Request
 - Design Request
-- Incident Report
-- Training
 - Meeting
+- Holiday
+- Currency
+- Reminder
+- Schedule
 
-An Object describes the business.
-
-It does not describe software.
-
-It does not describe databases.
-
-It does not describe programming languages.
-
-It does not describe user interfaces.
+Objects describe the business, not the implementation.
 
 ---
 
-# Object Name
+# Identity
 
-Every Object has a name.
+Every Object has a unique name.
 
-The Object Name should use the terminology naturally used by the business.
+Object names should use business terminology.
 
-Examples
+Good examples
 
 ```text
-Customer
-
 Purchase Request
 
 Design Request
 
-Incident Report
+Employee
+
+Meeting
+
+Holiday
 ```
 
 Avoid implementation-oriented names.
 
+```text
+TblEmployee
+
+UserEntity
+
+RequestModel
+
+DesignDTO
+```
+
+---
+
+# Responsibility
+
+Each Object has one primary responsibility.
+
+An Object should represent one Business Concept.
+
+If an Object attempts to represent multiple concepts, it should be divided into smaller Objects.
+
 Good
 
 ```text
-Customer
+Employee
 
-Meeting
+Department
 
-Expense Claim
-
-Purchase Request
+Project
 ```
 
 Avoid
 
 ```text
-CustomerEntity
-
-PurchaseRequestTable
-
-PurchaseRequestDTO
-
-tbl_customer
+EmployeeDepartmentProject
 ```
-
----
-
-# Description
-
-An Object may include a Description.
-
-The Description explains the purpose of the Business Concept.
-
-Example
-
-```text
-Description
-
-Request for creating design materials.
-```
-
-Descriptions improve readability.
-
-They do not change the meaning of Business Knowledge.
 
 ---
 
 # Composition
 
-An Object is composed from smaller language constructs.
+An Object may contain one or more of the following language components.
 
-Typical constructs include:
+- Fields
+- Events
+- Constraints
+- Permissions
+- Views
 
-- Field
-- Relationship
-- Workflow
-- Constraint
-- Permission
-- Page
+Only the components required to express the Business Knowledge should be defined.
 
-An Object only contains the constructs necessary to describe its Business Knowledge.
+Not every Object requires every component.
 
-Simple business concepts may require only a few constructs.
+Examples
 
-More complex business concepts may require many.
-
----
-
-# Example
+A simple Object
 
 ```text
-Design Request
+Holiday
 
-Description
+Fields
 
-Request for creating design materials.
+- Name : Text
+- Date : Date
+```
 
-Information
+A business process
 
+```text
+Purchase Request
+
+Fields
+
+- Request Number : Text
 - Requester : User
-- Design Type : Poster | Thumbnail | Banner 2:1
-- Due Date : Date
-- Title : Text
-- Description : Rich Text
+- Amount : Money
 
-Workflow
+Events
 
-Draft
+When Submit
 
-    Submit -> Submitted
+    Status Submitted
 
-        Notify Design Team
-            if Design Type = Poster
+When Approve
 
-        Record Design Request Register
-
-Submitted
-
-    Accept -> Accepted
-
-    Reject -> Rejected
-
-Accepted
-
-    Start -> In Progress
-
-In Progress
-
-    Complete -> Completed
-
-        Notify Requester
-
-Completed
-
-Rejected
+    Status Approved
 
 Constraints
 
-- Title is required.
-- Description is required.
-- Due Date is required.
-- Due Date must be after today.
+- Amount must be greater than zero.
 
 Permissions
 
@@ -195,47 +162,57 @@ Requester
 
 - Submit
 
-Designer
+Manager
 
-- Accept
-- Reject
-- Start
-- Complete
+- Approve
 
-Pages
+Views
 
 - Request Form : Form
 - My Requests : Card
-- All Requests : Table
-- Dashboard : Dashboard
 ```
 
-The example above represents one Object.
+---
 
-It describes a complete Business Concept independently from implementation technology.
+# Relationships
+
+Objects may reference other Objects through Fields.
+
+Example
+
+```text
+Purchase Request
+
+Fields
+
+- Requester : User
+- Department : Department
+```
+
+Relationships are expressed naturally through Fields.
+
+No separate relationship definition is required.
 
 ---
 
 # Principles
 
-An Object represents Business Knowledge.
+An Object represents one Business Concept.
 
 An Object should use business terminology.
 
-An Object should remain declarative.
+An Object should remain independent from implementation technology.
 
-An Object should remain technology neutral.
-
-An Object should describe the business rather than its implementation.
+An Object should contain only the language components necessary to express its Business Knowledge.
 
 ---
 
 # Summary
 
-An Object is the primary building block of Menata.
+An Object is the primary unit of Business Knowledge in Menata.
 
-Every Business Concept is represented as an Object.
+Objects represent Business Concepts.
 
-Business Knowledge is organized through Objects.
+They are composed of language components such as Fields, Events, Constraints, Permissions, and Views.
 
-Objects are later composed into complete Business Knowledge using the language constructs defined by the Menata Specification.
+Machine Interpretation is responsible for realizing Objects while preserving the Business Knowledge expressed by Menata.
