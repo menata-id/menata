@@ -192,3 +192,34 @@ HR
 - Record Leave
 ```
 
+---
+
+# Principles
+
+Permissions represent Business Knowledge.
+
+Permissions describe organizational responsibility.
+
+Permissions should use business terminology.
+
+Permissions define which business roles may perform Events.
+
+Permissions remain declarative.
+
+Permissions remain technology neutral.
+
+Permissions describe business authority rather than implementation.
+
+Machine Interpretation is responsible for enforcing Permissions while preserving their business meaning.
+
+---
+
+# Summary
+
+A Permission defines which business roles may perform Events.
+
+Permissions express organizational responsibility independently of implementation technology.
+
+They remain focused on Business Knowledge rather than authentication or authorization mechanisms.
+
+Machine Interpretation is responsible for enforcing Permissions while preserving the intended business meaning.
