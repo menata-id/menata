@@ -8,36 +8,40 @@ Version
 
 # Purpose
 
-A Permission defines who is allowed to perform business actions.
+A Permission defines which business roles may perform Events.
 
 Permissions express business responsibilities and authority.
 
-They describe access to Business Knowledge.
+They describe who may perform business activities.
 
-They do not describe security implementation.
+They do not describe authentication, authorization mechanisms, or security implementation.
+
+Machine Interpretation is responsible for enforcing Permissions while preserving their business meaning.
 
 ---
 
 # Definition
 
-A Permission assigns one or more Actions to a business role.
+A Permission assigns one or more Events to a business role.
+
+Permissions describe organizational responsibility.
+
+They do not describe user accounts, identity management, or implementation technology.
 
 Examples include:
 
-- Requester may submit a request.
-- Designer may accept a request.
-- Manager may approve a request.
-- Administrator has full access.
-
-Permissions describe business responsibilities.
-
-They do not describe authentication, authorization mechanisms, or security technology.
+- Requester may Submit.
+- Designer may Accept.
+- Manager may Approve.
+- Finance may Verify Payment.
 
 ---
 
-# Roles
+# Business Roles
 
 Permissions are assigned to business roles.
+
+Role names should use business terminology.
 
 Examples
 
@@ -50,121 +54,12 @@ Reviewer
 
 Manager
 
-Administrator
-```
-
-Role names should use business terminology.
-
-They represent responsibilities within the business.
-
----
-
-# Actions
-
-Each role may perform one or more Actions.
-
-Example
-
-```text
-Permissions
-
-Requester
-
-- Submit
-
-Designer
-
-- Accept
-- Reject
-- Start
-- Complete
-```
-
-Another example
-
-```text
-Permissions
-
-Manager
-
-- Approve
-
 Finance
 
-- Verify
-- Pay
-```
-
-Permissions describe business capability.
-
-They do not describe user accounts or identity systems.
-
----
-
-# Full Access
-
-A role may be granted unrestricted access.
-
-Example
-
-```text
-Permissions
-
 Administrator
-
-- Full Access
 ```
 
-The meaning of Full Access is determined by Machine Interpretation.
+Business roles represent organizational responsibility.
 
----
+They do not represent individual users.
 
-# Example
-
-```text
-Permissions
-
-Requester
-
-- Submit
-
-Designer
-
-- Accept
-- Reject
-- Start
-- Complete
-
-Reviewer
-
-- Approve
-- Revision
-
-Administrator
-
-- Full Access
-```
-
----
-
-# Principles
-
-Permissions represent Business Knowledge.
-
-Permissions describe business responsibility.
-
-Permissions remain declarative.
-
-Permissions remain technology neutral.
-
-Permissions should describe who may perform an Action rather than how access is implemented.
-
----
-
-# Summary
-
-Permissions define which business roles may perform business actions.
-
-They express organizational responsibility while remaining independent from implementation technology.
-
-Machine Interpretation is responsible for enforcing Permissions while preserving their business meaning.
