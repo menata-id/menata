@@ -63,3 +63,132 @@ Business roles represent organizational responsibility.
 
 They do not represent individual users.
 
+---
+
+# Event Permissions
+
+A business role may be permitted to perform one or more Events.
+
+Permissions describe business authority.
+
+They do not describe how authorization is implemented.
+
+Example
+
+```text
+Permissions
+
+Requester
+
+- Submit
+
+Designer
+
+- Accept
+- Reject
+- Start
+- Complete
+```
+
+Another example
+
+```text
+Permissions
+
+Manager
+
+- Approve
+
+Finance
+
+- Verify Payment
+- Record Payment
+```
+
+A business role may be permitted to perform the same Event as another role.
+
+Example
+
+```text
+Permissions
+
+Requester
+
+- View
+
+Manager
+
+- View
+
+Administrator
+
+- View
+```
+
+Machine Interpretation determines how Permissions are enforced.
+
+---
+
+# Examples
+
+Design Request
+
+```text
+Permissions
+
+Requester
+
+- Submit
+
+Designer
+
+- Accept
+- Reject
+- Start
+- Complete
+
+Manager
+
+- Approve
+```
+
+Purchase Request
+
+```text
+Permissions
+
+Requester
+
+- Submit
+
+Manager
+
+- Approve
+
+Finance
+
+- Verify Payment
+
+Procurement
+
+- Create Purchase Order
+```
+
+Leave Request
+
+```text
+Permissions
+
+Employee
+
+- Submit
+
+Manager
+
+- Approve
+
+HR
+
+- Record Leave
+```
+
