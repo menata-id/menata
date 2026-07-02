@@ -1,293 +1,224 @@
-# Field
+# 002 — Field
 
 Version
 
 0.1 Draft
 
-Status
-
-Draft
-
 ---
 
 # Purpose
 
-Field adalah Grammar BDL yang merepresentasikan satu informasi mengenai sebuah Object.
+A Field represents a single piece of Business Information.
 
-Field merupakan unit informasi terkecil dalam Business Definition Language.
+Fields describe the information required to understand, perform, or record a Business Concept.
 
-Field mendeskripsikan apa yang diketahui mengenai suatu Object.
+Every Field contributes one piece of Business Knowledge.
 
 ---
 
 # Definition
 
-Field adalah representasi formal dari satu informasi bisnis.
+A Field represents one business value.
 
-Field harus mempunyai arti yang jelas bagi pengguna bisnis.
+Examples include:
 
-Field harus tetap mempunyai makna meskipun implementasi teknis berubah.
-
-Field bukan representasi implementasi teknis.
-
----
-
-# Philosophy
-
-Business memahami suatu Object melalui informasi yang dimilikinya.
-
-Contoh.
-
-Customer
-
-↓
-
-Customer Name
-
-Email Address
-
-Phone Number
-
-Birth Date
-
-Business OS menggunakan Field untuk merepresentasikan informasi tersebut.
-
-Field merupakan atribut dari sebuah Object.
-
----
-
-# Core Characteristics
-
-Field:
-
-- Merepresentasikan satu informasi bisnis.
-- Dimiliki oleh tepat satu Object.
-- Mempunyai Meaning.
-- Menggunakan Data Type.
-- Bersifat independen terhadap implementasi.
-- Dapat digunakan oleh Grammar lain.
-
----
-
-# Required Properties
-
-Field MUST mempunyai:
-
-- Name
-- Code
-- Meaning
-- Data Type
-
----
-
-# Optional Properties
-
-Field MAY mempunyai:
-
+- Customer Name
+- Due Date
+- Title
 - Description
-- Display Name
-- Category
-- Tags
-- Documentation
-- Localization
+- Quantity
+- Price
+- Status
+
+A Field describes business information.
+
+It does not describe database columns.
+
+It does not describe programming variables.
+
+It does not describe implementation details.
 
 ---
 
-# Grammar Relationships
+# Field Name
 
-Field dimiliki oleh satu Object.
+Every Field has a name.
 
-Field menggunakan satu Data Type.
+Field names should use business terminology.
 
-Field dapat digunakan oleh:
+Good
 
-- Action
-- Interaction
-- Workflow
-- Rule
-- View
-- Dashboard
-- Permission
-- Automation
-- Policy
-
-Grammar lain tidak mengubah definisi Field.
-
----
-
-# Semantics
-
-Field merepresentasikan satu informasi bisnis.
-
-Satu Field hanya mempunyai satu makna.
-
-Contoh.
-
+```text
 Customer Name
 
-Meaning
+Due Date
 
-Nama resmi pelanggan.
+Design Type
 
----
+Title
 
-Phone Number
+Description
+```
 
-Meaning
+Avoid
 
-Nomor telepon utama pelanggan.
+```text
+customer_name
 
----
+txtCustomer
 
-Expense Amount
+fld001
 
-Meaning
-
-Nilai biaya yang diajukan.
-
----
-
-Inspection Date
-
-Meaning
-
-Tanggal pelaksanaan inspeksi.
-
-Contoh yang bukan Field.
-
-customer_name_varchar
-
-tbl_customer_name
-
-customer_name_column
-
-customer_api
-
-phone_string
+design_type_id
+```
 
 ---
 
-# Normative Requirements
+# Field Type
 
-Field:
+A Field may define a type.
 
-- MUST mempunyai Name.
-- MUST mempunyai Code.
-- MUST mempunyai Meaning.
-- MUST menggunakan Data Type.
-- MUST dimiliki oleh tepat satu Object.
-- MUST merepresentasikan satu informasi bisnis.
-- MUST menggunakan istilah bisnis.
-- MUST bebas dari implementasi teknis.
-- SHOULD dapat digunakan kembali.
-- SHOULD mempunyai Description apabila diperlukan.
-- MAY mempunyai metadata tambahan.
+Common types include:
+
+```text
+Text
+
+Rich Text
+
+Number
+
+Boolean
+
+Date
+
+Date Time
+
+Duration
+
+Currency
+
+Percentage
+
+Email
+
+Phone
+
+URL
+
+User
+
+File
+
+Image
+
+Location
+```
+
+The language may evolve to support additional types.
 
 ---
 
-# Constraints
+# Value Lists
 
-Field tidak mengetahui implementasi teknis.
+Some Fields contain a predefined set of values.
 
-Field tidak mengetahui Runtime.
+Example
 
-Field tidak mengetahui Storage.
+```text
+Design Type
 
-Field tidak mengetahui Renderer.
+- Poster
+- Thumbnail
+- Banner 2:1
+```
 
-Field tidak mengetahui Database.
+Another example
 
-Field tidak mengetahui Framework.
+```text
+Priority
 
-Field tidak mengetahui bahasa pemrograman.
+- Low
+- Normal
+- High
+- Urgent
+```
 
-Field juga tidak mengetahui implementasi Grammar lain.
+---
+
+# Optional Information
+
+A Field may be optional.
+
+Example
+
+```text
+Attachment : File (Optional)
+```
+
+If omitted, a Field is interpreted according to the rules defined by the Object.
 
 ---
 
 # Examples
 
-## Customer Name
+```text
+Information
 
-Meaning
+- Requester : User
 
-Nama resmi pelanggan.
+- Design Type
 
-Data Type
+    - Poster
+    - Thumbnail
+    - Banner 2:1
 
-Person Name
+- Due Date : Date
 
----
+- Title : Text
 
-## Expense Amount
+- Description : Rich Text
 
-Meaning
+- Attachment : File (Optional)
+```
 
-Nilai biaya yang diajukan.
+Another example
 
-Data Type
+```text
+Information
 
-Money
+- Employee : User
 
----
+- Leave Type
 
-## Inspection Date
+    - Annual Leave
+    - Sick Leave
+    - Marriage Leave
 
-Meaning
+- Start Date : Date
 
-Tanggal pelaksanaan inspeksi.
+- End Date : Date
 
-Data Type
-
-Date
-
----
-
-## Asset Status
-
-Meaning
-
-Status operasional aset.
-
-Data Type
-
-Selection
+- Reason : Rich Text
+```
 
 ---
 
-# Non Goals
+# Principles
 
-Field tidak mendeskripsikan:
+A Field represents Business Information.
 
-- User Interface
-- Layout
-- Validation
-- Workflow
-- Rule
-- Permission
-- Automation
-- Runtime
-- Storage
-- API
+Field names should use business terminology.
 
-Field hanya mendeskripsikan satu informasi bisnis.
+Field definitions should remain technology neutral.
+
+Fields describe information, not implementation.
 
 ---
 
-# Compatibility
+# Summary
 
-Perubahan Field harus menjaga makna bisnis.
+A Field represents a single piece of Business Information.
 
-Perubahan Runtime, Storage, maupun Renderer tidak boleh mengubah definisi Field.
+Fields are combined to describe the information required by a Business Concept.
 
----
-
-# Notes
-
-Field merupakan Grammar yang mendeskripsikan satu informasi bisnis.
-
-Setiap Field dimiliki oleh tepat satu Object.
-
-Data Type didefinisikan pada Reference Specification.
-
-Implementasi validasi, penyimpanan, maupun penyajian ditentukan oleh Grammar dan Runtime yang menggunakannya.
+Together, Fields form the information model of an Object while remaining independent from implementation technology.
