@@ -1,4 +1,4 @@
-# 006 — Page
+# 006 — View
 
 Version
 
@@ -8,9 +8,9 @@ Version
 
 # Purpose
 
-A Page defines how Business Knowledge is presented to users.
+A View defines how Business Knowledge is organized and presented for a particular business purpose.
 
-Pages organize Business Information for different business activities.
+Views help people interact with Business Knowledge.
 
 They describe presentation intent.
 
@@ -20,28 +20,32 @@ They do not describe user interface implementation.
 
 # Definition
 
-A Page represents a business-facing screen.
+A View represents a way of presenting an Object.
+
+An Object may have one or more Views.
+
+Each View serves a different business purpose.
 
 Examples include:
 
 - Request Form
 - My Requests
+- All Requests
 - Dashboard
+- Calendar
 - Review Queue
-- Employee Directory
-- Purchase History
 
-Pages describe what users need to see.
+Views describe what people need to see.
 
 They do not describe how software renders the interface.
 
 ---
 
-# Page Name
+# View Name
 
-Every Page has a name.
+Every View has a name.
 
-Page names should use business terminology.
+View names should use business terminology.
 
 Examples
 
@@ -50,11 +54,11 @@ Request Form
 
 My Requests
 
+All Requests
+
 Dashboard
 
 Review Queue
-
-Design Queue
 ```
 
 Avoid implementation-oriented names.
@@ -67,6 +71,8 @@ Employee Directory
 Purchase Requests
 
 Asset Dashboard
+
+Meeting Calendar
 ```
 
 Avoid
@@ -78,16 +84,16 @@ DashboardComponent
 
 RequestScreen
 
-tbl_request
+ListView1
 ```
 
 ---
 
-# Presentation
+# View Type
 
-A Page may define its preferred presentation.
+A View may define its preferred presentation.
 
-Common presentations include:
+Common View Types include:
 
 ```text
 Form
@@ -107,16 +113,40 @@ Timeline
 Map
 ```
 
-Presentation expresses business intent.
+The View Type expresses business intent.
 
-Machine Interpretation determines how it is implemented.
+Machine Interpretation determines how it is realized.
+
+---
+
+# Multiple Views
+
+An Object may define multiple Views.
+
+Each View may present the same Business Knowledge differently depending on its purpose.
+
+Example
+
+```text
+Views
+
+- Request Form : Form
+
+- My Requests : Card
+
+- All Requests : Table
+
+- Dashboard : Dashboard
+```
 
 ---
 
 # Examples
 
+Example 1
+
 ```text
-Pages
+Views
 
 - Request Form : Form
 
@@ -127,62 +157,50 @@ Pages
 - Dashboard : Dashboard
 ```
 
-Another example
+Example 2
 
 ```text
-Pages
+Views
 
 - Employee Directory : Table
 
-- Organization Chart : Chart
+- Employee Profile : Form
 
-- Company Calendar : Calendar
+- Organization Structure : Chart
 ```
 
----
-
-# Multiple Pages
-
-An Object may have multiple Pages.
-
-Each Page serves a different business purpose.
-
-Example
+Example 3
 
 ```text
-Pages
+Views
 
-- Request Form : Form
+- Project Timeline : Timeline
 
-- My Requests : Card
+- Project Dashboard : Dashboard
 
-- All Requests : Table
-
-- Dashboard : Dashboard
-
-- Request Trend : Chart
+- Project Location : Map
 ```
 
 ---
 
 # Principles
 
-Pages represent Business Knowledge.
+A View represents Business Knowledge.
 
-Pages describe presentation intent.
+A View describes presentation intent.
 
-Pages remain declarative.
+A View remains declarative.
 
-Pages remain technology neutral.
+A View remains technology neutral.
 
-Pages should describe what users need rather than how interfaces are built.
+A View should describe what users need to see rather than how interfaces are implemented.
 
 ---
 
 # Summary
 
-Pages define how Business Knowledge is presented to users.
+A View defines how Business Knowledge is organized and presented for a particular business purpose.
 
-They organize Business Information according to business needs while remaining independent from implementation technology.
+Multiple Views may exist for the same Object.
 
-Machine Interpretation is responsible for realizing Pages using appropriate technologies.
+Machine Interpretation is responsible for realizing each View while preserving the Business Knowledge expressed by Menata.
