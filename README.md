@@ -1,28 +1,83 @@
-# Business OS
+# Menata
 
-> **Business Knowledge as a Language**
+> **A language for representing Business Knowledge.**
 
-Business OS adalah pendekatan **Knowledge-Defined Software** yang memandang **Business Knowledge** sebagai aset utama organisasi.
+Business software has been tightly coupled to implementation technologies for decades.
 
-Business OS menyediakan **Business Definition Language (BDL)** untuk merepresentasikan Business Knowledge secara formal.
+Programming languages evolve.
 
-Business Knowledge yang direpresentasikan menggunakan BDL dapat diimplementasikan oleh satu atau lebih Runtime menjadi aplikasi bisnis.
+Frameworks evolve.
 
-Business OS bukan framework.
+Databases evolve.
 
-Business OS bukan runtime.
+User interfaces evolve.
 
-Business OS adalah spesifikasi.
+Business Knowledge should not.
+
+**Menata** is a declarative language for representing Business Knowledge independently from implementation technology.
+
+Business Knowledge written in Menata can be implemented by one or more Runtime implementations into business applications.
+
+Menata is the foundation for **Knowledge-Defined Software**.
+
+---
+
+> ⚠️ **Research Project**
+>
+> Menata is currently in the **Research Draft** stage.
+>
+> The language specification is under active development and **breaking changes are expected** before version **1.0**.
+>
+> The current focus of this repository is **language design**, not runtime implementation.
+>
+> Feedback, discussions, references, and constructive criticism are welcome.
+
+---
+
+# Why Menata?
+
+Business Knowledge is one of the most valuable assets of an organization.
+
+Unfortunately, Business Knowledge is often tightly coupled to programming languages, frameworks, databases, and user interfaces.
+
+As technology evolves, organizations repeatedly rewrite applications—not because the business has changed, but because the technology has changed.
+
+Menata separates **Business Knowledge** from **implementation**.
+
+Business Knowledge becomes a long-lived asset.
+
+Technology becomes replaceable.
 
 ---
 
 # Vision
 
-Business Knowledge harus dapat dipisahkan dari teknologi implementasi.
+Business Knowledge should outlive technology.
 
-Perubahan Runtime, bahasa pemrograman, database, maupun User Interface tidak boleh mengubah Business Knowledge organisasi.
+Business Knowledge should be understandable by both humans and AI.
 
-Business Knowledge harus tetap menjadi aset yang stabil sepanjang evolusi teknologi.
+Business Knowledge should be reusable.
+
+Business Knowledge should be implementation independent.
+
+Business Knowledge should become a first-class engineering artifact.
+
+---
+
+# Core Philosophy
+
+Menata follows several fundamental principles.
+
+- Business First
+- Knowledge Driven
+- Declarative
+- Runtime Independent
+- Storage Independent
+- Renderer Independent
+- AI Native
+- Composable
+- Extensible
+- Backward Compatible
 
 ---
 
@@ -35,7 +90,7 @@ Business Reality
 Business Knowledge
         │
         ▼
-Business Definition Language
+Menata
         │
         ▼
 Runtime
@@ -47,55 +102,23 @@ Application
 User Experience
 ```
 
-Business OS memisahkan pengetahuan bisnis dari implementasi teknis.
+Business Reality represents what actually happens inside an organization.
+
+Business Knowledge represents organizational understanding of that reality.
+
+Menata provides a formal language for representing Business Knowledge.
+
+Runtime implementations execute Menata definitions.
+
+Applications are generated or implemented from Menata.
 
 ---
 
-# Repository Structure
+# Language
 
-Saat ini repository dikembangkan menggunakan pendekatan **Specification First**.
+Menata represents Business Knowledge using a collection of Core Grammar.
 
-```text
-business-os/
-
-README.md
-
-manifesto.md
-
-design-principles.md
-
-business-definition-language.md
-
-core-concepts.md
-
-bdl/
-
-    000-bdl-spec.md
-
-    001-object.md
-
-    002-field.md
-
-    003-relationship.md
-
-    004-action.md
-
-    ...
-```
-
-Struktur repository akan berkembang seiring perkembangan spesifikasi.
-
----
-
-# Current Architecture
-
-Business OS terdiri dari beberapa spesifikasi.
-
-## Business Definition Language (BDL)
-
-Business Definition Language merupakan bahasa formal untuk merepresentasikan Business Knowledge.
-
-Grammar yang saat ini dirancang.
+Current Core Grammar:
 
 - Object
 - Field
@@ -110,13 +133,29 @@ Grammar yang saat ini dirancang.
 - Automation
 - Policy
 
+Each Grammar has a single responsibility.
+
+Together they describe Business Knowledge.
+
+---
+
+# Ecosystem
+
+The Menata ecosystem is expected to evolve into several specifications and implementations.
+
+## Language Specification
+
+Defines the Menata language.
+
+Current repository focus.
+
 ---
 
 ## Composition Specification *(Planned)*
 
-Composition Specification akan mendefinisikan bagaimana Grammar dikomposisikan menjadi solusi bisnis.
+Defines how Business Knowledge is composed into complete business solutions.
 
-Dokumen yang direncanakan.
+Planned concepts include:
 
 - Recipe
 - Workspace
@@ -126,17 +165,23 @@ Dokumen yang direncanakan.
 
 ## Runtime Specification *(Planned)*
 
-Runtime Specification akan mendefinisikan bagaimana Business Definition Language diimplementasikan menjadi aplikasi.
+Defines how Menata is executed.
 
-Runtime bukan bagian dari Business Definition Language.
+Multiple Runtime implementations are expected.
+
+Examples:
+
+- Go Runtime
+- Java Runtime
+- Python Runtime
 
 ---
 
 ## Reference Specification *(Planned)*
 
-Reference Specification akan mendefinisikan vocabulary bersama yang digunakan oleh seluruh Grammar.
+Defines shared vocabularies used across the language.
 
-Contohnya.
+Examples:
 
 - Data Types
 - Naming Conventions
@@ -146,35 +191,64 @@ Contohnya.
 
 ---
 
-# Design Principles
+# Design Goals
 
-Business OS dibangun menggunakan prinsip berikut.
+Menata is designed so that:
 
-- Business First
-- Knowledge Driven
-- Metadata First
-- Declarative
-- Runtime Independent
-- Storage Independent
-- Renderer Independent
-- AI Native
-- Composable
-- Extensible
-- Backward Compatible
+- Business Knowledge becomes the primary organizational asset.
+- One Business Definition can be implemented by multiple Runtime implementations.
+- Business Knowledge remains stable while technology evolves.
+- Business analysts can describe business systems without writing source code.
+- AI can understand, generate, validate, and improve Business Knowledge.
+- Runtime implementations remain replaceable.
+
+The fundamental principle is:
+
+> **One Business Definition. Multiple Runtime.**
 
 ---
 
-# Design Philosophy
+# Repository Structure
 
-Business OS tidak bertujuan menggantikan bahasa pemrograman.
+```
+README.md
 
-Business OS tidak bertujuan menggantikan framework.
+manifesto.md
 
-Business OS tidak bertujuan menggantikan Runtime.
+design-principles.md
 
-Business OS menyediakan bahasa formal untuk merepresentasikan Business Knowledge.
+specification/
 
-Runtime bertanggung jawab mengimplementasikan bahasa tersebut menjadi aplikasi.
+    language/
+
+        000-language-spec.md
+
+        001-object.md
+
+        002-field.md
+
+        003-relationship.md
+
+        004-action.md
+
+        ...
+```
+
+The repository structure will evolve together with the language.
+
+---
+
+# Current Status
+
+Current stage:
+
+**Research Draft**
+
+The language specification is actively evolving.
+
+Breaking changes are expected until version **1.0**.
+
+The current goal is to design a stable language before building production-grade Runtime implementations.
 
 ---
 
@@ -182,11 +256,11 @@ Runtime bertanggung jawab mengimplementasikan bahasa tersebut menjadi aplikasi.
 
 ## Phase 1
 
-Business Definition Language Specification
+Language Specification
 
-- [x] Foundation
-- [ ] Core Grammar
-- [ ] Reference Specification
+- Foundation
+- Core Grammar
+- Reference Specification
 
 ---
 
@@ -194,9 +268,9 @@ Business Definition Language Specification
 
 Composition Specification
 
-- [ ] Recipe
-- [ ] Workspace
-- [ ] Application
+- Recipe
+- Workspace
+- Application
 
 ---
 
@@ -204,10 +278,10 @@ Composition Specification
 
 Runtime Specification
 
-- [ ] Runtime
-- [ ] Storage
-- [ ] Renderer
-- [ ] AI Integration
+- Runtime
+- Storage
+- Renderer
+- AI Integration
 
 ---
 
@@ -215,17 +289,19 @@ Runtime Specification
 
 Reference Runtime
 
-- [ ] Go Runtime
-- [ ] Web Renderer
-- [ ] AI Authoring
+- Go Runtime
+- Web Runtime
+- AI Authoring
+- CLI
+- Playground
 
 ---
 
 ## Phase 5
 
-Proof of Concept Applications
+Reference Applications
 
-- Portal GA
+- Business OS
 - Sustainability Management
 - Learning Management
 - Knowledge Management
@@ -234,18 +310,18 @@ Proof of Concept Applications
 
 ---
 
-# Status
+# Contributing
 
-Current Status
+Menata is currently focused on language design.
 
-**Draft**
+Discussions, ideas, references, critiques, and design proposals are highly appreciated.
 
-Repository ini sedang digunakan untuk merancang spesifikasi Business Definition Language dan arsitektur Business OS.
-
-Spesifikasi dapat berubah hingga versi 1.0 dipublikasikan.
+A formal RFC (Request for Comments) process is planned as the language matures.
 
 ---
 
 # License
 
-TBD
+Licensed under the Apache License 2.0.
+
+See the LICENSE file for details.
