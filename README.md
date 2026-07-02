@@ -2,19 +2,29 @@
 
 > **A language for representing Business Knowledge.**
 
-Business software has been tightly coupled to implementation technologies for decades.
+Every organization runs on Business Knowledge.
 
-Programming languages evolve.
+People know how work gets done.
 
-Frameworks evolve.
+They know the rules.
 
-Databases evolve.
+They know the decisions.
 
-User interfaces evolve.
+They know the workflows.
 
-Business Knowledge should not.
+They know the exceptions.
 
-**Menata** is a declarative language for representing Business Knowledge independently from implementation technology.
+The knowledge already exists.
+
+Yet only a small portion of that knowledge ever becomes software.
+
+Not because the business is unimportant.
+
+But because software is expensive to build, difficult to change, and tightly coupled to implementation technology.
+
+**Menata exists to change that.**
+
+Menata is a declarative language for expressing Business Knowledge independently from programming languages, frameworks, databases, and user interfaces.
 
 Business Knowledge expressed in Menata can be implemented by one or more Runtime implementations into business applications.
 
@@ -26,7 +36,7 @@ Business Knowledge expressed in Menata can be implemented by one or more Runtime
 >
 > The language specification is evolving and **breaking changes are expected** before version **1.0**.
 >
-> The current focus of this repository is the design of the Menata language.
+> The current focus of this repository is language design.
 >
 > Feedback, discussions, references, and constructive criticism are welcome.
 
@@ -34,32 +44,45 @@ Business Knowledge expressed in Menata can be implemented by one or more Runtime
 
 ## Why Menata?
 
-Business Knowledge is one of the most valuable assets of an organization.
+Software development is expensive.
 
-Unfortunately, it is often embedded inside source code, tightly coupled to programming languages, frameworks, databases, and user interfaces.
+Business change is continuous.
 
-As technology evolves, organizations repeatedly rewrite software—not because the business has changed, but because the technology has changed.
+Organizations constantly make difficult decisions about which applications deserve to be built.
 
-Menata separates **Business Knowledge** from **implementation**.
+Core business systems usually come first.
 
-Business Knowledge becomes a long-lived organizational asset.
+Other business functions often wait.
 
-Technology becomes replaceable.
+Sometimes forever.
+
+Yet every business activity already contains Business Knowledge.
+
+If people know how to perform the work, the knowledge already exists.
+
+The problem is no longer creating Business Knowledge.
+
+The problem is turning Business Knowledge into software.
+
+Menata aims to make that transformation significantly simpler.
 
 ---
 
 ## Vision
 
-Menata is built on a simple belief.
-
-> **Business Knowledge should outlive technology.**
+We believe that every Business Knowledge deserves software.
 
 Business Knowledge should:
 
-- be implementation independent,
+- be independent from implementation technology,
 - be understandable by both humans and AI,
 - be reusable across applications,
-- evolve independently from runtime technology.
+- evolve independently from runtime implementations,
+- remain a long-term organizational asset.
+
+Software should evolve because Business Knowledge evolves.
+
+Not because technology changes.
 
 ---
 
@@ -81,13 +104,13 @@ Runtime
 Application
 ```
 
-Business Reality represents what actually happens inside an organization.
+Business Reality is where work actually happens.
 
-Business Knowledge represents an organization's understanding of that reality.
+Business Knowledge explains how that work is performed.
 
-Menata provides a formal language for expressing Business Knowledge.
+Menata provides a formal language for expressing that knowledge.
 
-Runtime implementations execute Menata.
+Runtime implementations transform the language into executable applications.
 
 Applications become an implementation detail.
 
@@ -95,7 +118,7 @@ Applications become an implementation detail.
 
 ## Design Principles
 
-Menata is designed around a small set of fundamental principles.
+Menata is built around several fundamental principles.
 
 - Business First
 - Knowledge First
@@ -108,7 +131,7 @@ Menata is designed around a small set of fundamental principles.
 - Convention over Configuration
 - Long-term Compatibility
 
-The complete design rationale is available in **design-principles.md**.
+A complete explanation of these principles is available in **design-principles.md**.
 
 ---
 
@@ -116,21 +139,25 @@ The complete design rationale is available in **design-principles.md**.
 
 The language specification is developed incrementally.
 
-Current specifications are available in the `specification/` directory.
+Each document defines one concept of the language.
 
-Each document defines one part of the language.
+The current specification is available in the `specification/` directory.
 
 ---
 
-## Roadmap
+## Long-term Vision
 
-The long-term vision of the Menata ecosystem includes:
+The Menata ecosystem is expected to include:
 
 - Language Specification
 - Runtime Implementations
 - Development Tools
 - AI-assisted Authoring
 - Reference Applications
+
+The language comes first.
+
+Everything else is built on top of it.
 
 ---
 
