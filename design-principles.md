@@ -1,253 +1,186 @@
-# 001. Design Principles
+# Menata Design Principles
 
-> Design Principles define the architectural philosophy of Menata Runtime.
->
-> They guide every architectural decision while remaining independent from implementation technologies.
->
-> As technologies evolve, these principles should remain stable.
+Version
+
+0.1 Draft
 
 ---
 
-# Core Principles
+# Introduction
 
-## 1. Machine First
+Menata is designed around a small set of fundamental principles.
 
-Menata Runtime is designed primarily for deterministic machine interpretation.
+These principles guide the evolution of the language, its specification, and future machine interpreters.
 
-Human readability is important.
-
-Machine correctness is mandatory.
-
-Runtime Metadata should always prioritize consistency, determinism, and correctness over human convenience.
+Whenever a design decision conflicts with these principles, the decision should be questioned.
 
 ---
 
-## 2. Runtime First
+# Principle 1
 
-The runtime owns application realization.
+## Business First
 
-Metadata describes application intent.
+Business exists independently of technology.
 
-The runtime determines how that intent is realized.
+Technology should adapt to Business Knowledge.
 
-Application behavior belongs to the runtime.
-
----
-
-## 3. Metadata First
-
-Applications are defined by Runtime Metadata.
-
-Application source code implements the runtime.
-
-Runtime Metadata implements applications.
-
-Application evolution should primarily occur by changing Runtime Metadata rather than application source code.
+Business Knowledge should never be constrained by implementation technology.
 
 ---
 
-## 4. Declarative
+# Principle 2
 
-Runtime Metadata describes **what** applications should become.
+## Knowledge First
 
-The runtime determines **how** applications are realized.
+Business Knowledge is the primary asset of an organization.
 
-Implementation details belong to the runtime.
+Menata exists to express Business Knowledge.
 
----
+Machine implementations exist to realize it.
 
-# Architecture Principles
-
-## 5. Convention over Configuration
-
-The runtime should provide intelligent defaults.
-
-Configuration should only exist where application intent cannot be inferred safely.
-
-Simple applications should require minimal configuration.
+The language always prioritizes Business Knowledge over implementation concerns.
 
 ---
 
-## 6. Infer Before Configure
+# Principle 3
 
-Inference is preferred over explicit configuration.
+## Declarative
 
-Whenever application behavior can be inferred safely, explicit metadata should not be required.
+Menata describes **what** a business is.
 
-Configuration should primarily describe exceptions.
+It does not describe **how** machines should implement it.
 
----
-
-## 7. Composable
-
-Applications should be assembled from reusable metadata.
-
-Objects.
-
-Views.
-
-Events.
-
-Constraints.
-
-Permissions.
-
-Services.
-
-Pages.
-
-Each component should remain independently reusable.
+Implementation is the responsibility of Machine Interpretation.
 
 ---
 
-## 8. Reference over Duplication
+# Principle 4
 
-Relationships should be expressed through references.
+## Technology Neutral
 
-Business Knowledge should have a single source of truth.
+Menata does not depend on any programming language, framework, database, AI model, runtime, or implementation technology.
 
-Duplicated metadata should be avoided whenever possible.
+Technology will continue to evolve.
 
----
-
-## 9. Workspace Isolation
-
-Workspace is the primary execution boundary.
-
-Applications belong to workspaces.
-
-Isolation applies to:
-
-- ownership,
-- visibility,
-- governance,
-- security,
-- deployment.
-
-Cross-workspace interaction should always be explicit.
+Business Knowledge should remain stable.
 
 ---
 
-# Evolution Principles
+# Principle 5
 
-## 10. Live Evolution
+## Human Readable
 
-Applications should evolve continuously.
+Business Knowledge should be understandable by humans.
 
-Changing Runtime Metadata changes application behavior.
+Business analysts should be able to read it.
 
-Application evolution should not require application regeneration.
+Developers should be able to implement it.
 
----
+Machines should be able to interpret it.
 
-## 11. Data Preservation
-
-Business data is more valuable than Runtime Metadata.
-
-Runtime Metadata may evolve.
-
-Applications may evolve.
-
-The runtime may evolve.
-
-Business data should remain preserved.
-
-Potentially destructive changes should always require explicit migration decisions.
+A language should be understandable before it is executable.
 
 ---
 
-## 12. Long-term Compatibility
+# Principle 6
 
-Business Knowledge should survive multiple runtime generations.
+## Machine Readable
 
-Runtime evolution should preserve compatibility whenever reasonably possible.
+Menata is designed to be interpreted consistently by machines.
 
-Organizations should not lose Business Knowledge because runtime implementation evolves.
+Machine Interpretation may include:
 
----
+- AI
+- Code Generators
+- Compilers
+- Interpreters
+- Runtime Engines
+- Future technologies
 
-## 13. Technology Adaptable
-
-Implementation technologies will evolve.
-
-Programming languages may change.
-
-Rendering engines may change.
-
-Databases may change.
-
-Infrastructure may change.
-
-Business Knowledge should remain stable across technological evolution.
+The language should remain independent from any particular implementation.
 
 ---
 
-# Platform Principles
+# Principle 7
 
-## 14. Single Runtime
+## Composable
 
-A single runtime should be capable of realizing one application or thousands of independent applications.
+Complex Business Knowledge should be constructed from smaller concepts.
 
-Applications are isolated by Runtime Metadata.
+Each Grammar has one responsibility.
 
-Not by runtime instances.
+Grammar should compose rather than overlap.
 
----
-
-## 15. Open Platform
-
-Menata Runtime should remain extensible.
-
-Additional capabilities should be introduced through extension rather than modification.
-
-The core runtime should remain stable.
+Composition is preferred over complexity.
 
 ---
 
-## 16. Compatible Authoring
+# Principle 8
 
-Runtime Metadata should be implementation independent.
+## Open Specification
 
-Menata Apps Builder is the reference authoring tool.
+The Menata language specification is open.
 
-However, Runtime Metadata may be produced by:
+Anyone can build machine interpreters, tools, editors, validators, or other implementations, provided they conform to the language specification.
 
-- Menata Apps Builder,
-- visual builders,
-- command-line tools,
-- manual editors,
-- compatible third-party builders,
-- any implementation that follows the Runtime Language specification.
-
-The runtime only interprets Runtime Metadata.
-
-The runtime never depends on how Runtime Metadata was created.
+An open language encourages innovation.
 
 ---
 
-# Vision
+# Principle 9
 
-Applications should evolve at the pace of Business Knowledge.
+## Convention over Configuration
 
-Business Knowledge evolves.
+The language provides consistent conventions.
 
-Runtime Metadata evolves.
+Most Business Knowledge should be expressible without excessive configuration.
 
-The runtime evolves.
+Conventions improve readability, interoperability, and machine interpretation.
 
-Applications continuously evolve.
+---
 
-Business Knowledge remains the long-term organizational asset.
+# Principle 10
+
+## Long-term Compatibility
+
+Business Knowledge should outlive implementation technology.
+
+The language should evolve carefully.
+
+Whenever possible, new language versions should preserve compatibility with existing Business Knowledge.
+
+Long-term stability is more valuable than short-term convenience.
 
 ---
 
 # Summary
 
-Menata Runtime is built upon four fundamental beliefs.
+Menata separates Business Knowledge from Machine Interpretation.
 
-- Machine First
-- Runtime First
-- Metadata First
-- Declarative
+```text
+Business Reality
+        │
+        ▼
+Business Knowledge
+        │
+        ▼
+Menata
+        │
+        ▼
+Machine Interpretation
+        │
+        ▼
+Application
+```
 
-Everything else supports these four principles.
+Business Reality is where work happens.
+
+Business Knowledge explains that reality.
+
+Menata expresses Business Knowledge.
+
+Machine Interpretation realizes it.
+
+Applications are one possible outcome.
+
+The language remains stable while implementation technology continues to evolve.
