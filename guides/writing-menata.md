@@ -90,10 +90,19 @@ Fields
 
 ### Tips memilih tipe
 
-- Pilihan terbatas dan sudah diketahui dari awal → `A | B | C`
-- Bisa berubah seiring waktu → sebaiknya jadi Object tersendiri
-- Siapa yang mengajukan/bertanggung jawab → `User`
 - Satu Field = satu informasi. Jangan gabungkan dua informasi dalam satu Field.
+- Siapa yang mengajukan/bertanggung jawab → `User`
+
+Untuk memilih antara pilihan tetap (`A | B | C`) dan referensi ke Object lain, tanyakan berurutan:
+
+1. **Apakah nilai ini menamai sesuatu yang punya identitas sendiri** (bisa dipakai ulang, punya riwayat), atau cuma label yang menempel pada baris ini?
+   - Cuma label yang menempel → lanjut ke langkah 2.
+   - Punya identitas sendiri → seharusnya jadi Object tersendiri, dirujuk lewat Field bertipe nama Object itu (lihat "Object References" di atas).
+2. **Apakah pilihannya kecil, tetap, dan tidak akan bertambah tanpa mengubah dokumen ini?**
+   - Ya → `A | B | C`
+   - Tidak (akan bertambah lewat admin, dipakai berulang di tempat lain) → seharusnya Object tersendiri.
+
+Kajian lengkap beserta pohon keputusan formal dan contoh penerapannya: `runtime/benchmarks/005-field-modeling-decision-framework.md`.
 
 ### Field Status
 
