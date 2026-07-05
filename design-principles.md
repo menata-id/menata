@@ -14,7 +14,7 @@ These principles guide the evolution of the language, its specification, and fut
 
 Whenever a design decision conflicts with these principles, the decision should be questioned.
 
-These principles govern the **language** (`specification/000-language-spec.md` §Language Goals restates them in normative form for the language specifically). Menata Runtime — one Machine Interpreter — has its own, related principle set that governs runtime architecture rather than language design: `runtime/001-design-principles.md`.
+These principles govern the **language** (`specification/000-language-spec.md` §Language Goals restates them in normative form for the language specifically). Menata Runtime — one Machine Interpreter — has its own, related principle set that governs runtime architecture rather than language design: [`001-design-principles.md`](https://github.com/menata-id/menata-runtime/blob/main/001-design-principles.md) in [menata-id/menata-runtime](https://github.com/menata-id/menata-runtime).
 
 ---
 

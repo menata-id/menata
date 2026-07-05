@@ -102,7 +102,7 @@ Untuk memilih antara pilihan tetap (`A | B | C`) dan referensi ke Object lain, t
    - Ya → `A | B | C`
    - Tidak (akan bertambah lewat admin, dipakai berulang di tempat lain) → seharusnya Object tersendiri.
 
-Kajian lengkap beserta pohon keputusan formal dan contoh penerapannya: `runtime/benchmarks/005-field-modeling-decision-framework.md`.
+Kajian lengkap beserta pohon keputusan formal dan contoh penerapannya: [`benchmarks/005-field-modeling-decision-framework.md`](https://github.com/menata-id/menata-runtime/blob/main/benchmarks/005-field-modeling-decision-framework.md) di [menata-id/menata-runtime](https://github.com/menata-id/menata-runtime).
 
 ### Field Status
 
