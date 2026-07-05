@@ -100,6 +100,8 @@ These concerns belong to their respective implementation technologies.
 
 Menata is designed with the following goals.
 
+These goals are the normative restatement, for this specification, of the fuller rationale in `design-principles.md` — read that document for the reasoning behind each goal.
+
 ## Business Knowledge First
 
 Business Knowledge is the primary artifact of the language.
@@ -250,6 +252,16 @@ An Application is one possible realization of Business Knowledge.
 Applications are implementation artifacts produced through Machine Interpretation.
 
 Different applications may realize the same Business Knowledge while preserving its meaning.
+
+---
+
+## Object and Machine
+
+An Object, as defined in this specification, is a Business Concept.
+
+Menata Runtime — one specific Machine Interpreter — realizes each Object as a **Machine**: the primary runtime realization unit, holding the Object's Fields, Events, Constraints, Permissions, and Views as executable Runtime Metadata.
+
+Object and Machine name the same Business Concept from two sides of the language boundary. Object is how the concept is expressed. Machine is how one particular runtime realizes it. Other Machine Interpreters may name their realization differently while preserving the same Object.
 
 # Conceptual Model
 

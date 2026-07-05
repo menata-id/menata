@@ -141,6 +141,23 @@ Each document defines one concept of the language.
 
 See the `specification/` directory for the complete specification.
 
+### Documentation Map
+
+This repository separates documentation by purpose. Start from the row that matches what you need:
+
+| I want to... | Go to |
+|---|---|
+| Understand the language philosophy and *why* it exists | `design-principles.md` |
+| Read the normative language specification (Object, Field, Event, Constraint, Permission, View) | `specification/` |
+| Learn to write Business Knowledge in `.menata` | `guides/writing-menata.md` |
+| Understand Menata Runtime's architecture and principles | `runtime/001-design-principles.md` … `006-runtime-model.md`, `runtime/README.md` |
+| Learn to translate `.menata` into Runtime Metadata (YAML/SQL) | `runtime/guides/writing-runtime-metadata.md`, `runtime/runtime-metadata-schema.md` |
+| See a working prototype | `runtime/prototype/go/` |
+| See how the same Business Knowledge maps to other platforms (Salesforce, Frappe, Drupal, Directus, Budibase, Camunda) | `runtime/prototype/{salesforce,frappe,drupal,directus,budibase,camunda}/` |
+| Understand what the runtime can/cannot do today, and why | `runtime/capability-registry.md` |
+| Understand the method behind capability discovery (benchmarks, cases, governance) | `runtime/capability-roadmap.md`, `runtime/capability-lifecycle.md` |
+| Review architecture/performance/security standards per capability | `runtime/nfr-standards.md` |
+
 ---
 
 ## Long-term Vision
