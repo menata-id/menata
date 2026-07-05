@@ -155,7 +155,7 @@ This repository separates documentation by purpose. Start from the row that matc
 | See a working prototype | `runtime/prototype/go/` |
 | See how the same Business Knowledge maps to other platforms (Salesforce, Frappe, Drupal, Directus, Budibase, Camunda) | `runtime/prototype/{salesforce,frappe,drupal,directus,budibase,camunda}/` |
 | Understand what the runtime can/cannot do today, and why | `runtime/capability-registry.md` |
-| Understand the method behind capability discovery (benchmarks, cases, governance) | `runtime/capability-roadmap.md`, `runtime/capability-lifecycle.md` |
+| Understand the method behind capability discovery (benchmarks, cases, governance) | `runtime/roadmap.md`, `runtime/capability-lifecycle.md` |
 | Review architecture/performance/security standards per capability | `runtime/nfr-standards.md` |
 
 ---
