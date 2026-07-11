@@ -518,6 +518,7 @@ dipakai sesuai kebutuhan:
 |------|----------|
 | `Form` | Input untuk membuat atau mengubah record |
 | `List` | Daftar banyak record |
+| `Card` | Daftar banyak record, tampilan ringkas berbentuk kartu (mis. papan Kanban) |
 | `Detail` | Tampilan lengkap satu record |
 | `Report` | Ringkasan/agregat lintas banyak record (mis. Trial Balance, Leaderboard) |
 | `Calendar` | Tampilan berbasis tanggal (mis. jadwal janji temu) |
