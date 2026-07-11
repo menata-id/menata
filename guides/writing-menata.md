@@ -635,22 +635,45 @@ Jika satu Object punya lebih dari 10 Field atau 8 Event, pertimbangkan untuk mem
 
 Nilai Status yang muncul di Events harus konsisten. Jika `When Submit` → `Status Submitted`, maka nilai `Submitted` ada di daftar Status.
 
-**6. Nilai pada `if` tidak persis sama dengan nilai di Fields**
+**6. Rujukan nilai di `if` yang ambigu**
+
+Menata itu human-first — Anda **boleh** merujuk sebuah pilihan dengan sebutan natural yang manusia
+pakai sehari-hari, tidak harus persis sama huruf demi huruf dengan yang dideklarasikan di Fields.
+Contoh nyata dari `design-request.menata`, yang justru sudah diterjemahkan dengan benar oleh
+developer di `design-request.yaml`:
+
+```
+Fields
+
+- Design Type : Poster | Thumbnail | Banner 2:1
+
+Constraints
+
+- Attachment is required.
+
+    if Design Type = Banner
+```
+
+"Banner" di sini jelas merujuk ke `Banner 2:1` bagi siapa pun yang membacanya — meresolusi rujukan
+seperti ini ke nilai yang presisi adalah pekerjaan Machine Interpretation, bukan tanggung jawab Anda
+saat menulis Business Knowledge.
+
+Yang perlu dihindari bukan singkatan, tapi **ambiguitas** — kalau ada dua pilihan yang sama-sama bisa
+cocok dengan sebutan yang Anda tulis:
 
 ```
 ❌ Fields
-   - Design Type : Poster | Thumbnail | Banner 2:1
-   ...
-   if Design Type = Banner
+   - Design Type : Banner 2:1 | Banner 3:2
+
+   if Design Type = Banner        ← yang mana? bisa dua-duanya
 
 ✅ Fields
-   - Design Type : Poster | Thumbnail | Banner 2:1
-   ...
-   if Design Type = Banner 2:1
+   - Design Type : Banner 2:1 | Banner 3:2
+
+   if Design Type = Banner 2:1    ← jelas, tidak ada pilihan lain yang mirip
 ```
 
-Nilai yang dibandingkan di `if` (baik di Events maupun Constraints) harus persis sama dengan salah
-satu pilihan yang dideklarasikan di Fields — bukan singkatan atau parafrasenya.
+Tulis serinci yang dibutuhkan supaya seorang pembaca manusia tidak ragu — tidak lebih, tidak kurang.
 
 ---
 
@@ -663,8 +686,8 @@ satu pilihan yang dideklarasikan di Fields — bukan singkatan atau parafrasenya
 - [ ] Setiap Event mengubah `Status` (atau menjelaskan kenapa tidak perlu)
 - [ ] Setiap Event yang ada di **Events** juga muncul di **Permissions**, minimal untuk satu role
 - [ ] Constraint ditulis sebagai kalimat lengkap, bukan pseudocode
-- [ ] Setiap nilai yang dipakai di `if` (Events maupun Constraints) persis sama dengan salah satu
-      pilihan yang dideklarasikan di Fields
+- [ ] Setiap nilai yang dirujuk di `if` (Events maupun Constraints) jelas menunjuk ke satu pilihan
+      di Fields tanpa ambigu — boleh singkatan natural, asal tidak bisa disalahartikan
 - [ ] View minimal punya satu Form (input) dan satu Detail (tampilan lengkap)
 
 ---
