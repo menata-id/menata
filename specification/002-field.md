@@ -98,6 +98,8 @@ Rich Text
 
 Number
 
+Money
+
 Boolean
 
 Date

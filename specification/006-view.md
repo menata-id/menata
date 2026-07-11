@@ -94,6 +94,8 @@ Form
 
 List
 
+Card
+
 Detail
 
 Summary
