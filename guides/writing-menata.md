@@ -2,10 +2,42 @@
 
 Panduan ini menjelaskan cara menulis Business Knowledge dalam Menata Language — dari nol sampai selesai.
 
-**Untuk siapa:** Domain expert, business analyst, siapapun yang memahami cara kerja bisnis.  
+**Untuk siapa:** Domain expert, business analyst, siapapun yang memahami cara kerja bisnis.
 **Tidak dibutuhkan:** Pengetahuan pemrograman.
 
 Referensi formal: `specification/` — panduan ini adalah versi praktisnya.
+
+**Langkah setelah ini:** panduan developer menerjemahkan `.menata` menjadi Runtime Metadata (YAML → SQL) —
+[`guides/writing-runtime-metadata.md`](https://github.com/menata-id/menata-runtime/blob/main/guides/writing-runtime-metadata.md)
+di [menata-id/menata-runtime](https://github.com/menata-id/menata-runtime).
+
+---
+
+## Posisi `.menata` dalam Arsitektur
+
+```
+Business Reality
+        │
+        ▼
+Business Knowledge (.menata)   ← Anda di sini
+        │
+        ▼
+Runtime Metadata (YAML → SQL)
+        │
+        ▼
+Menata Runtime (Go prototype)
+        │
+        ▼
+Application
+```
+
+`.menata` mendeskripsikan **apa yang bisnis tahu** — objek apa saja yang ada, field apa saja yang
+dimiliki, kejadian apa saja yang bisa terjadi, aturan apa yang berlaku, siapa boleh melakukan apa,
+dan tampilan apa saja yang dibutuhkan. Tidak lebih dari itu.
+
+`.menata` **tidak** menyebutkan: tabel database, tipe kolom SQL, endpoint API, atau detail teknis
+lain. Kalau sebuah kalimat butuh pengetahuan tentang cara runtime bekerja untuk ditulis, itu bukan
+Business Knowledge lagi — itu sudah masuk Runtime Metadata, dan bukan tempatnya di sini.
 
 ---
 
@@ -26,6 +58,44 @@ Pertanyaan yang salah:
 - "Kolom apa yang perlu ditambahkan ke tabel?"
 - "Bagaimana form ini akan terlihat di browser?"
 - "Query apa yang akan dijalankan?"
+
+---
+
+## Struktur Satu Object (ringkasan)
+
+Setiap file `.menata` mendeskripsikan satu **Object** (nanti direalisasikan sebagai satu Machine).
+Strukturnya selalu lima bagian, urutan tetap — pakai ini sebagai lembar acuan cepat, langkah-langkah
+lengkapnya ada di bawah:
+
+```
+<Nama Object>
+
+Fields
+
+- <Nama Field> : <Tipe>
+...
+
+Events
+
+When <Nama Event>
+
+    <aksi>
+    <aksi>
+
+Constraints
+
+- <aturan>.
+
+Permissions
+
+<Role>
+
+- <Event yang boleh dijalankan>
+
+Views
+
+- <Nama View> : <Tipe View>
+```
 
 ---
 
@@ -64,7 +134,7 @@ Leave Request
 Fields
 
 - Employee : User
-- Leave Type : Annual Leave | Sick Leave | Emergency Leave
+- Leave Type : Annual Leave | Sick Leave | Emergency Leave | Unpaid Leave
 - Start Date : Date
 - End Date : Date
 - Reason : Rich Text
@@ -88,6 +158,23 @@ Fields
 | `A \| B \| C` | Pilihan dari daftar tetap |
 | `NamaObject` | Referensi ke Object lain |
 
+`User` dan `File` ditulis seperti tipe biasa, tapi sebenarnya adalah **rujukan** ke sesuatu yang
+punya identitasnya sendiri (siapa penggunanya, file yang mana) — Anda tidak perlu tahu detail ini
+saat menulis `.menata`, cukup tulis tipenya.
+
+### Daftar baris — `Table of (...)`
+
+Kalau satu field sebenarnya adalah **daftar baris**, bukan nilai tunggal — misalnya baris-baris item
+dalam sebuah dokumen (purchase order, jurnal akuntansi):
+
+```
+- Lines : Table of (Account, Debit Amount, Credit Amount, Line Memo)
+```
+
+Ini masih notasi sementara — belum ada grammar formal untuk daftar baris di Menata Language. Tulis
+saja seperti contoh di atas; developer yang menerjemahkan ke Runtime Metadata tahu cara
+merealisasikannya (`type: child_table`).
+
 ### Tips memilih tipe
 
 - Satu Field = satu informasi. Jangan gabungkan dua informasi dalam satu Field.
@@ -97,16 +184,29 @@ Untuk memilih antara pilihan tetap (`A | B | C`) dan referensi ke Object lain, t
 
 1. **Apakah nilai ini menamai sesuatu yang punya identitas sendiri** (bisa dipakai ulang, punya riwayat), atau cuma label yang menempel pada baris ini?
    - Cuma label yang menempel → lanjut ke langkah 2.
-   - Punya identitas sendiri → seharusnya jadi Object tersendiri, dirujuk lewat Field bertipe nama Object itu (lihat "Object References" di atas).
+   - Punya identitas sendiri → seharusnya jadi Object tersendiri, dirujuk lewat Field bertipe nama Object itu (lihat "Object References" di `specification/002-field.md`).
 2. **Apakah pilihannya kecil, tetap, dan tidak akan bertambah tanpa mengubah dokumen ini?**
    - Ya → `A | B | C`
    - Tidak (akan bertambah lewat admin, dipakai berulang di tempat lain) → seharusnya Object tersendiri.
 
-Kajian lengkap beserta pohon keputusan formal dan contoh penerapannya: [`benchmarks/005-field-modeling-decision-framework.md`](https://github.com/menata-id/menata-runtime/blob/main/benchmarks/005-field-modeling-decision-framework.md) di [menata-id/menata-runtime](https://github.com/menata-id/menata-runtime).
+Contoh: `Currency` pada field `Money` sebenarnya punya siklus hidup sendiri (kurs berubah-ubah) —
+tapi Anda tetap cukup tulis `Amount : Money`, developer yang menangani detail relasinya.
+
+Kajian lengkap beserta pohon keputusan formal dan contoh penerapannya:
+[`benchmarks/005-field-modeling-decision-framework.md`](https://github.com/menata-id/menata-runtime/blob/main/benchmarks/005-field-modeling-decision-framework.md)
+di [menata-id/menata-runtime](https://github.com/menata-id/menata-runtime).
 
 ### Field Status
 
-Field `Status` boleh ditulis jika organisasi perlu mendefinisikan nilai-nilainya secara eksplisit. Nilai Status biasanya muncul dari Events — lihat Langkah 3.
+Field `Status` boleh ditulis jika organisasi perlu mendefinisikan nilai-nilainya secara eksplisit:
+
+```
+- Status : Draft | Submitted | Approved | Rejected | Cancelled
+```
+
+Nilai pertama dalam daftar adalah keadaan awal record saat dibuat. `Status` **tidak pernah** diisi
+langsung oleh user lewat form — nilainya selalu diset oleh Events. Nilai Status yang muncul di
+Events harus konsisten dengan daftar ini — lihat Langkah 3.
 
 ---
 
@@ -157,6 +257,34 @@ When <Nama Event>
 | `Notify <Role>` | Kirim notifikasi ke role |
 | `Record <Nama>` | Catat ke log atau register |
 | `Create <Object>` | Buat record di Object lain |
+| `<Field> <Nilai>` | Set field lain ke sebuah nilai (mis. `Approved By Current User`) |
+
+### Kondisi di dalam Event — `if`
+
+```
+Every Day 07:00
+
+    if Next Due Date = Today
+
+        Status Due
+
+        Notify Assignee
+```
+
+Baris `if <Field> = <Nilai>` membuat aksi di bawahnya (diindentasi lebih dalam) hanya berjalan kalau
+kondisinya benar. Dua baris `if` yang ditumpuk berarti keduanya harus benar sekaligus (AND).
+
+### Event berjadwal — `Every Day <Jam>`
+
+Selain `When <Nama Event>` (dipicu aksi user), Event juga bisa dipicu jadwal:
+
+```
+Every Day 08:00
+
+    if Due Date is before Today
+
+        Status Overdue
+```
 
 ### Tips menulis Event
 
@@ -199,7 +327,9 @@ Constraint boleh hanya berlaku dalam kondisi tertentu:
     if Design Type = Banner
 ```
 
-Baris `if` harus diindentasi dengan 4 spasi, diletakkan setelah baris constraint dengan satu baris kosong di antara keduanya.
+Artinya: `Attachment` wajib diisi, tapi hanya kalau `Design Type` adalah `Banner`. Baris `if` harus
+diindentasi dengan 4 spasi, diletakkan setelah baris constraint dengan satu baris kosong di antara
+keduanya.
 
 ### Tips menulis Constraint
 
@@ -243,7 +373,8 @@ Manager
 - Role = jabatan atau fungsi bisnis, bukan nama user: `Employee`, `Manager`, `Finance`, `HR`
 - Satu Role boleh punya banyak Event
 - Satu Event boleh dimiliki lebih dari satu Role (misalnya `View` bisa dimiliki semua role)
-- Jika sebuah Event tidak ada di Permissions, tidak ada yang bisa memicunya
+- Jika sebuah Event tidak ada di Permissions, tidak ada yang bisa memicunya — setiap Event yang ada
+  di **Events** harus disebutkan di sini untuk setidaknya satu role
 
 ---
 
@@ -273,6 +404,7 @@ Views
 | `Dashboard` | Metrik dan grafik |
 | `Calendar` | Tampilan berbasis tanggal |
 | `Timeline` | Tampilan kronologis |
+| `Report` | Ringkasan/agregat lintas banyak record |
 
 ### Tips menulis View
 
@@ -385,6 +517,19 @@ Nilai Status yang muncul di Events harus konsisten. Jika `When Submit` → `Stat
 
 ---
 
+## Checklist Sebelum Menyerahkan ke Developer
+
+- [ ] Nama Object jelas dan singular (`Leave Request`, bukan `Leave Requests`)
+- [ ] Setiap field punya tipe yang jelas — kalau ragu antara pilihan tertutup vs rujukan, lihat
+      §"Tips memilih tipe" di Langkah 2
+- [ ] Ada field `Status` dengan daftar keadaan lengkap, nilai pertama = keadaan awal
+- [ ] Setiap Event mengubah `Status` (atau menjelaskan kenapa tidak perlu)
+- [ ] Setiap Event yang ada di **Events** juga muncul di **Permissions**, minimal untuk satu role
+- [ ] Constraint ditulis sebagai kalimat lengkap, bukan pseudocode
+- [ ] View minimal punya satu Form (input) dan satu Detail (tampilan lengkap)
+
+---
+
 ## Referensi
 
 Untuk definisi formal setiap Grammar, baca `specification/`:
@@ -395,3 +540,11 @@ Untuk definisi formal setiap Grammar, baca `specification/`:
 - `specification/004-constraint.md` — Constraint
 - `specification/005-permission.md` — Permission
 - `specification/006-view.md` — View
+
+Untuk langkah setelah `.menata` — menerjemahkannya ke Runtime Metadata dan menjalankannya — lihat
+[menata-id/menata-runtime](https://github.com/menata-id/menata-runtime):
+
+- [`guides/writing-runtime-metadata.md`](https://github.com/menata-id/menata-runtime/blob/main/guides/writing-runtime-metadata.md) — cara developer menerjemahkan `.menata` menjadi Runtime Metadata (YAML → SQL)
+- [`runtime-metadata-schema.md`](https://github.com/menata-id/menata-runtime/blob/main/runtime-metadata-schema.md) — daftar lengkap tipe field dan konfigurasinya
+- [`benchmarks/005-field-modeling-decision-framework.md`](https://github.com/menata-id/menata-runtime/blob/main/benchmarks/005-field-modeling-decision-framework.md) — kerangka lengkap memilih tipe field, termasuk kenapa `Money`/`User`/`File` adalah "reference sugar"
+- [`prototype/go/docs/examples/`](https://github.com/menata-id/menata-runtime/tree/main/prototype/go/docs/examples) — puluhan contoh `.menata` nyata lintas domain (HR, akuntansi, inventori, media sosial, rumah sakit, dan lainnya) — cara tercepat belajar polanya
