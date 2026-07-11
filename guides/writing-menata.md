@@ -162,37 +162,26 @@ Fields
 punya identitasnya sendiri (siapa penggunanya, file yang mana) — Anda tidak perlu tahu detail ini
 saat menulis `.menata`, cukup tulis tipenya.
 
-### Daftar baris — `Table of (...)`
-
-Kalau satu field sebenarnya adalah **daftar baris**, bukan nilai tunggal — misalnya baris-baris item
-dalam sebuah dokumen (purchase order, jurnal akuntansi):
-
-```
-- Lines : Table of (Account, Debit Amount, Credit Amount, Line Memo)
-```
-
-Ini masih notasi sementara — belum ada grammar formal untuk daftar baris di Menata Language. Tulis
-saja seperti contoh di atas; developer yang menerjemahkan ke Runtime Metadata tahu cara
-merealisasikannya (`type: child_table`).
-
 ### Tips memilih tipe
+
+Ini heuristik, bukan aturan wajib. Kalau ragu, jangan macet di sini — tulis tebakan terbaik Anda dan
+lanjutkan; presisi tipe field bukan tanggung jawab Business Knowledge, dan boleh dipertajam nanti saat
+diterjemahkan ke Runtime Metadata.
 
 - Satu Field = satu informasi. Jangan gabungkan dua informasi dalam satu Field.
 - Siapa yang mengajukan/bertanggung jawab → `User`
 
-Untuk memilih antara pilihan tetap (`A | B | C`) dan referensi ke Object lain, tanyakan berurutan:
+Kalau ragu antara pilihan tetap (`A | B | C`) dan referensi ke Object lain, dua pertanyaan ini bisa
+membantu — tapi hasilnya tetap tebakan bisnis, bukan keputusan teknis final:
 
-1. **Apakah nilai ini menamai sesuatu yang punya identitas sendiri** (bisa dipakai ulang, punya riwayat), atau cuma label yang menempel pada baris ini?
-   - Cuma label yang menempel → lanjut ke langkah 2.
-   - Punya identitas sendiri → seharusnya jadi Object tersendiri, dirujuk lewat Field bertipe nama Object itu (lihat "Object References" di `specification/002-field.md`).
-2. **Apakah pilihannya kecil, tetap, dan tidak akan bertambah tanpa mengubah dokumen ini?**
-   - Ya → `A | B | C`
-   - Tidak (akan bertambah lewat admin, dipakai berulang di tempat lain) → seharusnya Object tersendiri.
+1. Apakah nilai ini menamai sesuatu yang terasa punya "kehidupan sendiri" bagi bisnis (dipakai ulang
+   di tempat lain, dikelola terpisah, punya riwayat) — atau cuma label yang menempel pada baris ini?
+2. Kalau cuma label: apakah himpunan pilihannya kecil dan jarang berubah? Kalau ya, `A | B | C`
+   biasanya cukup. Kalau nilai itu sebetulnya konsep bisnis sendiri, tulis saja nama Object-nya
+   sebagai tipe (lihat "Object References" di `specification/002-field.md`) — tidak masalah kalau
+   ternyata developer nanti memilih merealisasikannya secara berbeda.
 
-Contoh: `Currency` pada field `Money` sebenarnya punya siklus hidup sendiri (kurs berubah-ubah) —
-tapi Anda tetap cukup tulis `Amount : Money`, developer yang menangani detail relasinya.
-
-Kajian lengkap beserta pohon keputusan formal dan contoh penerapannya:
+Bagi yang ingin kajian lebih dalam (opsional, sudah masuk wilayah Machine Interpretation):
 [`benchmarks/005-field-modeling-decision-framework.md`](https://github.com/menata-id/menata-runtime/blob/main/benchmarks/005-field-modeling-decision-framework.md)
 di [menata-id/menata-runtime](https://github.com/menata-id/menata-runtime).
 
