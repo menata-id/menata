@@ -63,9 +63,9 @@ Pertanyaan yang salah:
 
 ## Struktur Satu Object (ringkasan)
 
-Setiap file `.menata` mendeskripsikan satu **Object** (nanti direalisasikan sebagai satu Machine).
-Strukturnya selalu lima bagian, urutan tetap — pakai ini sebagai lembar acuan cepat, langkah-langkah
-lengkapnya ada di bawah:
+Setiap file `.menata` mendeskripsikan satu **Object** (nanti direalisasikan sebagai satu Machine),
+disusun dari sampai lima bagian berikut, dalam urutan tetap kalau dipakai — pakai ini sebagai lembar
+acuan cepat, langkah-langkah lengkapnya ada di bawah:
 
 ```
 <Nama Object>
@@ -96,6 +96,13 @@ Views
 
 - <Nama View> : <Tipe View>
 ```
+
+**Tidak semua bagian wajib ada.** Object cukup memuat bagian yang benar-benar dibutuhkan untuk
+mengekspresikan Business Knowledge-nya — kalau sebuah Object tidak punya kejadian yang mengubah
+keadaannya (misalnya data master seperti `Chart of Account`, atau Object gabungan seperti `Follow`
+pada relasi many-to-many), bagian **Events** boleh dilewati sepenuhnya. Di antara puluhan contoh
+`.menata` nyata di `prototype/go/docs/examples/` (menata-runtime), hampir separuhnya tidak punya
+bagian Events sama sekali.
 
 ---
 
@@ -161,6 +168,25 @@ Fields
 `User` dan `File` ditulis seperti tipe biasa, tapi sebenarnya adalah **rujukan** ke sesuatu yang
 punya identitasnya sendiri (siapa penggunanya, file yang mana) — Anda tidak perlu tahu detail ini
 saat menulis `.menata`, cukup tulis tipenya.
+
+`File` juga dipakai untuk dokumen yang **dihasilkan** sistem dari sebuah template (misalnya
+sertifikat kelulusan), bukan hanya yang diunggah pengguna — dari sisi Business Knowledge keduanya
+sama-sama "sebuah file", bedanya siapa yang menghasilkannya adalah detail Machine Interpretation.
+
+### Daftar baris dalam satu Field
+
+Kadang satu Field sebenarnya adalah **daftar baris**, bukan satu nilai — misalnya baris-baris item
+dalam sebuah dokumen (pesanan, jurnal akuntansi, daftar konversi satuan). Belum ada grammar formal
+untuk ini di Menata Language, tapi polanya sudah dipakai berulang di banyak contoh nyata. Tulis saja
+nama kolom-kolomnya di dalam kurung:
+
+```
+- Lines : Table of (Account, Debit Amount, Credit Amount, Line Memo)
+```
+
+Ini notasi sementara, bukan keputusan final — cukup sampaikan maksud bisnisnya ("baris-baris ini
+yang perlu dicatat"), developer yang menerjemahkan tahu cara merealisasikannya di Runtime Metadata.
+Jangan khawatir memikirkan bagaimana daftar ini akan disimpan.
 
 ### Tips memilih tipe
 
@@ -240,32 +266,79 @@ When <Nama Event>
 
 ### Respon yang umum dipakai
 
-| Respon | Arti |
-|--------|------|
-| `Status <Nilai>` | Ubah status menjadi nilai tersebut |
-| `Notify <Role>` | Kirim notifikasi ke role |
-| `Record <Nama>` | Catat ke log atau register |
-| `Create <Object>` | Buat record di Object lain |
-| `<Field> <Nilai>` | Set field lain ke sebuah nilai (mis. `Approved By Current User`) |
+Menata **tidak membatasi respon pada daftar tertutup** — tulis dengan bahasa bisnis apa pun yang
+paling pas untuk menjelaskan apa yang terjadi. Pola-pola berikut sudah terbukti berulang di banyak
+Object nyata, jadi pakai sebagai titik awal, bukan daftar lengkap:
+
+| Respon | Arti | Contoh |
+|--------|------|--------|
+| `Status <Nilai>` | Ubah status menjadi nilai tersebut | `Status Approved` |
+| `Notify <Siapa>` | Kirim notifikasi | `Notify Design Team`, `Notify Assignee` |
+| `<Field> <Nilai>` | Set field ke sebuah nilai | `Approved By Current User`, `Posting Date Today` |
+| `Create <Object>` | Buat record baru di Object lain | `Create Loan`, `Create Order` |
+| `Record <Nama>` | Catat ke log atau register | `Record Design Request Register` |
+| `Generate <Sesuatu>` | Hasilkan serangkaian record dari satu formula | `Generate Repayment Schedule` |
+| `Issue <Object>` | Terbitkan sesuatu (mis. dokumen hasil generate) | `Issue Certificate` |
+| `<Field> plus/minus <Nilai>` | Tambah/kurangi nilai sebuah field | `Post Like Count plus 1` |
+| `<Field lain lewat rujukan>` | Ubah field milik Object yang dirujuk | `Invoice Status Paid` (dari Payment ke Invoice yang dirujuknya) |
+
+### Baris penjaga (guard) di dalam Event
+
+Sebuah Event boleh menuliskan syarat yang harus benar sebelum ia boleh berlanjut, ditulis sebagai
+kalimat aturan biasa — bukan `if`, karena ini bukan cabang kondisional, tapi syarat mutlak:
+
+```
+When Post
+
+    Posting Date Today
+
+    Posted By Current User
+
+    Sum of Lines Debit Amount must equal sum of Lines Credit Amount
+
+    Fiscal Period must not be Closed
+
+    Status Posted
+```
+
+Aturan yang sama biasanya juga dituliskan ulang di bagian **Constraints** sebagai aturan Object yang
+berlaku selalu — dua tempat ini boleh tumpang tindih, karena menjawab dua pertanyaan berbeda: Event
+menjawab "apa syarat sebelum aksi ini boleh terjadi", Constraint menjawab "apa yang harus selalu
+benar pada Object ini" (lihat Langkah 4).
 
 ### Kondisi di dalam Event — `if`
 
 ```
 Every Day 07:00
 
-    if Next Due Date = Today
-
-        Status Due
+    if Next Due Date < Today
+    if Status = Due
 
         Notify Assignee
 ```
 
-Baris `if <Field> = <Nilai>` membuat aksi di bawahnya (diindentasi lebih dalam) hanya berjalan kalau
-kondisinya benar. Dua baris `if` yang ditumpuk berarti keduanya harus benar sekaligus (AND).
+Baris `if <syarat>` membuat aksi di bawahnya (diindentasi lebih dalam) hanya berjalan kalau syaratnya
+benar. Dua baris `if` yang ditumpuk pada indentasi yang sama berarti keduanya harus benar sekaligus
+(AND). Syarat boleh ditulis dengan berbagai perbandingan bisnis, bukan cuma `=`:
+
+```
+if Status = Resolved
+if Next Due Date < Today
+if Due Date is before Today
+if Progress is greater than or equal to 100
+if sum of Point Ledger Entry Points for this Member is greater than or equal to 100
+if Provider Event ID already exists among Payment Webhook Event
+```
+
+Baris terakhir di atas adalah pola pengecekan "sudah pernah terjadi belum" — berguna untuk kejadian
+dari luar sistem yang mungkin terkirim dua kali (mis. webhook pembayaran), supaya tidak diproses ulang.
 
 ### Event berjadwal — `Every Day <Jam>`
 
-Selain `When <Nama Event>` (dipicu aksi user), Event juga bisa dipicu jadwal:
+Selain `When <Nama Event>` (dipicu aksi bisnis) dan `Every Day <Jam>` (dipicu jadwal harian), bahasa
+ini juga mengizinkan pemicu waktu lain seperti `Every Monday` atau `Every Month`, serta pemicu
+berbasis tanggal seperti `When Due Date` atau `When Due Date - 1 Day`. Dalam praktik saat ini,
+kebutuhan seperti itu paling sering diekspresikan lewat `Every Day` dikombinasikan dengan `if`:
 
 ```
 Every Day 08:00
@@ -320,6 +393,33 @@ Artinya: `Attachment` wajib diisi, tapi hanya kalau `Design Type` adalah `Banner
 diindentasi dengan 4 spasi, diletakkan setelah baris constraint dengan satu baris kosong di antara
 keduanya.
 
+### Pola Constraint lain yang sering muncul
+
+Constraint tidak selalu sesederhana "field ini wajib diisi". Pola-pola berikut sudah terbukti
+berulang di banyak Object nyata:
+
+```
+# Lintas record dalam satu Object (agregat)
+- Sum of Lines Debit Amount must equal sum of Lines Credit Amount.
+
+# Keunikan — mencegah baris duplikat pada relasi many-to-many
+- A Follower may follow a given Followee only once.
+
+# Lintas Object, lewat rujukan Field
+- Fund Current Balance must be greater than or equal to Amount.
+
+# Terhadap keadaan Object lain
+- Fiscal Period must not be Closed.
+
+# Kerahasiaan / siapa boleh melihat
+- Salary must be visible only to HR and the Employee.
+```
+
+Constraint keunikan ("...only once", "hanya boleh satu X per Y") sangat umum untuk Object relasi
+many-to-many (`Follow`, `Like`, `Membership`, `Enrollment`) — kalau Object Anda punya Field yang
+merujuk ke dua Object lain sekaligus tanpa satu pun "memiliki" barisnya, kemungkinan besar Anda
+butuh constraint semacam ini.
+
 ### Tips menulis Constraint
 
 - Tulis aturan sebagaimana orang bisnis akan menjelaskannya: "Amount must be greater than zero."
@@ -357,13 +457,39 @@ Manager
 - <Event>
 ```
 
+### Dua Role khusus
+
+**`System`** — dipakai kalau yang menjalankan Event bukan manusia, melainkan runtime itu sendiri
+(mis. Event yang dipicu jadwal, atau webhook dari luar):
+
+```
+Permissions
+
+System
+
+- Receive
+```
+
+**`Visitor`** — dipakai kalau sebuah View atau Event memang harus bisa diakses tanpa login sama
+sekali (mis. halaman blog publik). `Visitor` bukan role dalam organisasi — ia menandai *ketiadaan*
+sesi login, bukan salah satu jenisnya:
+
+```
+Permissions
+
+Visitor
+
+- Read Published
+```
+
 ### Tips menulis Permission
 
 - Role = jabatan atau fungsi bisnis, bukan nama user: `Employee`, `Manager`, `Finance`, `HR`
 - Satu Role boleh punya banyak Event
 - Satu Event boleh dimiliki lebih dari satu Role (misalnya `View` bisa dimiliki semua role)
 - Jika sebuah Event tidak ada di Permissions, tidak ada yang bisa memicunya — setiap Event yang ada
-  di **Events** harus disebutkan di sini untuk setidaknya satu role
+  di **Events** harus disebutkan di sini untuk setidaknya satu role (kecuali yang memang ditujukan
+  untuk `System`)
 
 ---
 
@@ -384,16 +510,21 @@ Views
 
 ### Tipe View
 
+Sama seperti respon Event, tipe View **bukan daftar tertutup** — pilih kata yang paling menjelaskan
+maksud bisnisnya. `Form`, `List`, dan `Detail` adalah trio yang hampir selalu dibutuhkan; sisanya
+dipakai sesuai kebutuhan:
+
 | Tipe | Kegunaan |
 |------|----------|
 | `Form` | Input untuk membuat atau mengubah record |
 | `List` | Daftar banyak record |
 | `Detail` | Tampilan lengkap satu record |
-| `Summary` | Ringkasan |
+| `Report` | Ringkasan/agregat lintas banyak record (mis. Trial Balance, Leaderboard) |
+| `Calendar` | Tampilan berbasis tanggal (mis. jadwal janji temu) |
+| `Summary` | Ringkasan singkat |
 | `Dashboard` | Metrik dan grafik |
-| `Calendar` | Tampilan berbasis tanggal |
 | `Timeline` | Tampilan kronologis |
-| `Report` | Ringkasan/agregat lintas banyak record |
+| `Map` | Tampilan berbasis lokasi |
 
 ### Tips menulis View
 
@@ -504,6 +635,23 @@ Jika satu Object punya lebih dari 10 Field atau 8 Event, pertimbangkan untuk mem
 
 Nilai Status yang muncul di Events harus konsisten. Jika `When Submit` → `Status Submitted`, maka nilai `Submitted` ada di daftar Status.
 
+**6. Nilai pada `if` tidak persis sama dengan nilai di Fields**
+
+```
+❌ Fields
+   - Design Type : Poster | Thumbnail | Banner 2:1
+   ...
+   if Design Type = Banner
+
+✅ Fields
+   - Design Type : Poster | Thumbnail | Banner 2:1
+   ...
+   if Design Type = Banner 2:1
+```
+
+Nilai yang dibandingkan di `if` (baik di Events maupun Constraints) harus persis sama dengan salah
+satu pilihan yang dideklarasikan di Fields — bukan singkatan atau parafrasenya.
+
 ---
 
 ## Checklist Sebelum Menyerahkan ke Developer
@@ -515,6 +663,8 @@ Nilai Status yang muncul di Events harus konsisten. Jika `When Submit` → `Stat
 - [ ] Setiap Event mengubah `Status` (atau menjelaskan kenapa tidak perlu)
 - [ ] Setiap Event yang ada di **Events** juga muncul di **Permissions**, minimal untuk satu role
 - [ ] Constraint ditulis sebagai kalimat lengkap, bukan pseudocode
+- [ ] Setiap nilai yang dipakai di `if` (Events maupun Constraints) persis sama dengan salah satu
+      pilihan yang dideklarasikan di Fields
 - [ ] View minimal punya satu Form (input) dan satu Detail (tampilan lengkap)
 
 ---
